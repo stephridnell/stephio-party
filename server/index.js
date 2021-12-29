@@ -1,21 +1,34 @@
+require('dotenv').config()
 const app = require('express')()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http, {
-  cors: {
-    origins: ['http://localhost:8080']
-  }
-})
 const game = require('./game')
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hey Socket.io</h1>')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const io = require('socket.io')(http, {
+  cors: { origins: ['http://localhost:8080'] }
 })
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+connectDatabase()
 
 io.on('connection', (socket) => {
   game.initGame(io, socket)
 })
 
-
-http.listen(3000, () => {
-  console.log('listening on *:3000')
+http.listen(process.env.PORT, () => {
+  console.log('listening on *:' + process.env.PORT)
 })
+
+async function connectDatabase () {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+    console.log('db connected\n')
+  } catch (err) {
+    console.log('error connecting db: ' + err.message + '\n')
+  }
+}
