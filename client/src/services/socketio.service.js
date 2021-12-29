@@ -15,9 +15,9 @@ class SocketioService {
 
   bindEvents () {
     this.socket.on('connected', data => this.onConnected(this, data))
-    this.socket.on('newGameCreated', data => this.onNewGameCreated(this, data))
-    this.socket.on('playerJoinedRoom', data => this.playerJoinedRoom(this, data))
-    this.socket.on('error', data => this.error(this, data))
+    this.socket.on('hostJoinedRoom', data => this.onHostJoinedRoom(this, data))
+    this.socket.on('playerJoinedRoom', data => this.onPlayerJoinedRoom(this, data))
+    this.socket.on('error', data => this.onError(this, data))
   }
 
   onConnected ({ store }, data) {
@@ -25,12 +25,13 @@ class SocketioService {
     store.commit('SOCKET_CONNECT')
   }
 
-  onNewGameCreated ({ store }, data) {
+  onHostJoinedRoom ({ store }, data) {
     store.commit('SET_GAME_ID', data.gameId)
     store.commit('SET_SOCKET_ID', data.socketId)
+    store.commit('IS_HOST')
   }
 
-  playerJoinedRoom ({ store }, data) {
+  onPlayerJoinedRoom ({ store }, data) {
     console.log(data)
   }
 
@@ -38,7 +39,7 @@ class SocketioService {
     this.socket.emit(event, body)
   }
 
-  error ({ store }, data) {
+  onError ({ store }, data) {
     store.commit('SET_ERROR', data.message)
   }
 

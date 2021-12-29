@@ -22,6 +22,10 @@ const schema = new Schema({
     type: Array,
     default: []
   },
+  completed: {
+    type: Boolean,
+    default: false
+  },
   teams: [Team]
 }, {
   timestamps: true

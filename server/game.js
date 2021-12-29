@@ -23,7 +23,7 @@ exports.initGame = function (sio, socket) {
 
 /* *******************************
    *                             *
-   *       HOST EVENTS           *
+   *         HOST EVENTS         *
    *                             *
    ******************************* */
 
@@ -31,7 +31,7 @@ exports.initGame = function (sio, socket) {
  * The 'New game' button was clicked and 'hostCreateNewGame' event occurred.
  */
  async function hostCreateNewGame () {
-   console.log('new game', this.id)
+  console.log('new game', this.id)
   // Create a unique Socket.IO Room
   var roomCode = ( Math.random() * 100000 ) | 0
   roomCode = roomCode.toString()
@@ -47,7 +47,7 @@ exports.initGame = function (sio, socket) {
   }
 
   // Return the Room ID (gameId) and the socket ID (socketId) to the browser client
-  this.emit('newGameCreated', {
+  this.emit('hostJoinedRoom', {
     gameId: roomCode,
     socketId: this.id
   })
@@ -58,42 +58,41 @@ exports.initGame = function (sio, socket) {
 
 /* *****************************
    *                           *
-   *     PLAYER EVENTS         *
+   *       PLAYER EVENTS       *
    *                           *
    ***************************** */
 
 /**
  * A player clicked the 'JOIN' button.
- * Attempt to connect them to the room that matches
+ * Attempt to connect them to the game/room that matches
  * the gameId entered by the player.
- * @param data Contains data entered via player's input - gameId.
+ * @param data Contains gameId entered via player's input or url param.
  */
- function playerJoinGame (gameId) {
-  console.log('Player attempting to join game: ' + gameId )
+ function playerJoinGame (roomCode) {
+  console.log('Player attempting to join game: ' + roomCode )
+  const game = Game.findOne({ roomCode, completed: false })
 
-  // A reference to the player's Socket.IO socket object
-  var sock = this
+  // If the game exists
+  if (game) {
+    // Look up the room ID
+    const room = io.sockets.adapter.rooms.get(roomCode)
 
-  // Look up the room ID
-  var room = io.sockets.adapter.rooms.get(gameId)
+    let event = 'playerJoinedRoom'
 
-  // If the room exists...
-  if(room != undefined){
-    // attach the socket id to the data object.
-    let data = {
-      socketId: sock.id,
-      gameId
+    if (room == undefined) {
+      event = 'hostJoinedRoom'
     }
 
     // Join the room
-    sock.join(gameId)
-
-    console.log('Player joining game: ' + gameId )
+    this.join(roomCode)
 
     // Emit an event notifying the clients that the player has joined the room.
-    io.sockets.in(gameId).emit('playerJoinedRoom', data)
+    io.sockets.in(roomCode).emit(event, {
+      socketId: this.id,
+      gameId: roomCode
+    })
   } else {
     // Otherwise, send an error message back to the player.
-    this.emit('error', { message: 'This room does not exist.' } )
+    this.emit('error', { message: 'This game does not exist.' } )
   }
 }

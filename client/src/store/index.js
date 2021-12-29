@@ -5,10 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isConnected: false,
+    errorMessage: '',
     gameId: '',
-    socketId: '',
-    errorMessage: ''
+    isConnected: false,
+    isHost: false,
+    socketId: ''
   },
 
   mutations: {
@@ -30,13 +31,18 @@ export default new Vuex.Store({
 
     SET_ERROR (state, message) {
       state.errorMessage = message
+    },
+
+    IS_HOST (state) {
+      state.isHost = true
     }
   },
 
   getters: {
+    errorMessage: state => state.errorMessage,
     gameId: state => state.gameId,
-    socketId: state => state.socketId,
     isConnected: state => state.isConnected,
-    errorMessage: state => state.errorMessage
+    isHost: state => state.isHost,
+    socketId: state => state.socketId
   }
 })
