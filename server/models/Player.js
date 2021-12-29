@@ -17,6 +17,4 @@ const schema = new Schema({
   timestamps: true
 })
 
-const model = mongoose.model('Player', schema)
-
-module.exports = model
+module.exports = schema

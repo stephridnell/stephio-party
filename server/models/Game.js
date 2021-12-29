@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
-import Team from './Team'
+const Team = require('./Team')
 
 const schema = new Schema({
   roomCode: {

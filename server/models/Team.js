@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
-import Player from './Player'
+const Player = require('./Player')
 
 const schema = new Schema({
   teamName: {
@@ -34,6 +34,4 @@ const schema = new Schema({
   timestamps: true
 })
 
-const model = mongoose.model('Team', schema)
-
-module.exports = model
+module.exports = schema

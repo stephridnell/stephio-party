@@ -1,3 +1,5 @@
+const Game = require('./models/Game')
+
 var io
 var gameSocket
 
@@ -28,20 +30,30 @@ exports.initGame = function (sio, socket) {
 /**
  * The 'New game' button was clicked and 'hostCreateNewGame' event occurred.
  */
- function hostCreateNewGame () {
+ async function hostCreateNewGame () {
    console.log('new game', this.id)
   // Create a unique Socket.IO Room
-  var thisGameId = ( Math.random() * 100000 ) | 0
+  var roomCode = ( Math.random() * 100000 ) | 0
+  roomCode = roomCode.toString()
+
+  // create new game in mongoDB
+  const newGame = new Game({ roomCode })
+
+  try {
+    await newGame.save()
+  } catch (error) {
+    this.emit('error', { message: 'Error creating new game. ' + error.message } )
+    return
+  }
 
   // Return the Room ID (gameId) and the socket ID (socketId) to the browser client
   this.emit('newGameCreated', {
-    gameId: thisGameId,
+    gameId: roomCode,
     socketId: this.id
   })
 
   // Join the Room and wait for the players to join
-  this.join(thisGameId.toString())
-  console.log(this.rooms)
+  this.join(roomCode)
 }
 
 /* *****************************
