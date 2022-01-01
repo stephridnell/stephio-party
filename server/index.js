@@ -29,7 +29,6 @@ io.on('connection', (socket) => {
   socket.on('disconnecting', (reason) => {
     for (const room of socket.rooms) {
       if (room !== socket.id) {
-        console.log('user has left', socket.id)
         delete users[userId]
         socket.to(room).emit('userDisconnected', socket.id)
       }

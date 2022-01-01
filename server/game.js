@@ -36,10 +36,13 @@ exports.initGame = function (sio, socket) {
   roomCode = roomCode.toString()
 
   // create new game in mongoDB
-  const newGame = new Game({ roomCode, hostId: this.handshake.query.userId })
+  const newGame = new Game({
+    roomCode,
+    hostId: this.handshake.query.userId
+  })
 
   try {
-    await newGame.save()
+    const game = await newGame.save()
   } catch (error) {
     this.emit('error', { message: 'Error creating new game. ' + error.message } )
     return
@@ -48,7 +51,8 @@ exports.initGame = function (sio, socket) {
   // Return the Room ID (gameId) and the socket ID (socketId) to the browser client
   this.emit('hostJoinedRoom', {
     gameId: roomCode,
-    socketId: this.id
+    socketId: this.id,
+    game
   })
 
   // Join the Room and wait for the players to join
@@ -67,9 +71,11 @@ exports.initGame = function (sio, socket) {
  * the gameId entered by the player.
  * @param data Contains gameId entered via player's input or url param.
  */
- function playerJoinGame (roomCode) {
+ async function playerJoinGame (roomCode) {
   console.log('Player attempting to join game: ' + roomCode )
-  const game = Game.findOne({ roomCode, completed: false })
+  const game = await Game.findOne({ roomCode, completed: false }).exec()
+  const userId = this.handshake.query.userId
+
 
   // If the game exists
   if (game) {
@@ -79,6 +85,9 @@ exports.initGame = function (sio, socket) {
     let event = 'playerJoinedRoom'
 
     if (room == undefined) {
+      if (game.hostId !== userId) {
+        this.emit('error', { message: 'Host is disconnected.' } )
+      }
       event = 'hostJoinedRoom'
     }
 
@@ -88,7 +97,8 @@ exports.initGame = function (sio, socket) {
     // Emit an event notifying the clients that the player has joined the room.
     io.sockets.in(roomCode).emit(event, {
       socketId: this.id,
-      gameId: roomCode
+      gameId: roomCode,
+      game
     })
   } else {
     // Otherwise, send an error message back to the player.

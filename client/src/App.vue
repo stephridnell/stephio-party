@@ -41,12 +41,6 @@ export default {
         this.$store.commit('SET_PLAYER_ID', newPlayerId)
         window.localStorage.setItem('sppid', newPlayerId)
       }
-    },
-    checkLocalStorageForHostInfo () {
-      const isHostCookie = window.localStorage.setItem('sphost')
-      if (isHostCookie && isHostCookie === 'true') {
-        
-      }
     }
   },
   beforeUnmount () {
