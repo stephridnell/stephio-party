@@ -7,6 +7,10 @@ const schema = new Schema({
     type: String,
     required: true
   },
+  hostId: {
+    type: String,
+    required: true
+  },
   turns: {
     type: Number,
     default: 10,

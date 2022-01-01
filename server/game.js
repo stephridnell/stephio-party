@@ -31,13 +31,12 @@ exports.initGame = function (sio, socket) {
  * The 'New game' button was clicked and 'hostCreateNewGame' event occurred.
  */
  async function hostCreateNewGame () {
-  console.log('new game', this.id)
   // Create a unique Socket.IO Room
   var roomCode = ( Math.random() * 100000 ) | 0
   roomCode = roomCode.toString()
 
   // create new game in mongoDB
-  const newGame = new Game({ roomCode })
+  const newGame = new Game({ roomCode, hostId: this.handshake.query.userId })
 
   try {
     await newGame.save()
