@@ -8,6 +8,8 @@ const io = require('socket.io')(http, {
   cors: { origins: ['http://localhost:8080'] }
 })
 
+let users = {}
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -15,6 +17,24 @@ connectDatabase()
 
 io.on('connection', (socket) => {
   game.initGame(io, socket)
+
+  let userId = socket.handshake.query.userId
+  
+  if (!users[userId]) users[userId] = []
+  
+  users[userId].push(socket.id)
+
+  io.sockets.emit('userConnected', users)
+
+  socket.on('disconnecting', (reason) => {
+    for (const room of socket.rooms) {
+      if (room !== socket.id) {
+        console.log('user has left', socket.id)
+        delete users[userId]
+        socket.to(room).emit('userDisconnected', socket.id)
+      }
+    }
+  })
 })
 
 http.listen(process.env.PORT, () => {

@@ -28,17 +28,6 @@ export default {
       errorMessage: 'errorMessage'
     })
   },
-  watch: {
-    gameId () {
-      this.$router.replace('/' + this.gameId).catch(err => {})
-    }
-  },
-  mounted () {
-    if (this.$route.params.gameId) {
-      this.$store.commit('SET_GAME_ID', this.$route.params.gameId)
-      this.$socket.emit('playerJoinGame', this.gameId)
-    }
-  },
   methods: {
     newGame () {
       this.resetError()

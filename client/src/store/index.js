@@ -5,6 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentUser: {
+      id: ''
+    },
     errorMessage: '',
     gameId: '',
     isConnected: false,
@@ -35,10 +38,16 @@ export default new Vuex.Store({
 
     IS_HOST (state) {
       state.isHost = true
+    },
+
+    SET_PLAYER_ID (state, playerId) {
+      Vue.set(state.currentUser, 'id', playerId)
     }
   },
 
   getters: {
+    currentUser: state => state.currentUser,
+    currentUserId: state => state.currentUser?.id || '',
     errorMessage: state => state.errorMessage,
     gameId: state => state.gameId,
     isConnected: state => state.isConnected,
