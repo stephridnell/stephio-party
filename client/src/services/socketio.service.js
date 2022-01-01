@@ -28,7 +28,7 @@ class SocketioService {
   onHostJoinedRoom ({ store }, data) {
     store.commit('SET_GAME_ID', data.gameId)
     store.commit('SET_SOCKET_ID', data.socketId)
-    store.commit('IS_HOST')
+    store.commit('IS_HOST', data.gameId)
   }
 
   onPlayerJoinedRoom ({ store }, data) {
