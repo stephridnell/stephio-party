@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    {{ connectedUsers }}
     <host-view v-if="isHost"></host-view>
     <player-view v-else-if="gameId"></player-view>
     <div v-else>
@@ -25,7 +26,8 @@ export default {
     ...mapGetters({
       gameId: 'gameId',
       isHost: 'isHost',
-      errorMessage: 'errorMessage'
+      errorMessage: 'errorMessage',
+      connectedUsers: 'connectedUsers'
     })
   },
   methods: {

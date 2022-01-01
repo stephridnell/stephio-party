@@ -15,12 +15,8 @@ class SocketioService {
 
   bindEvents () {
     this.socket.on('connected', data => this.onConnected(this, data))
-    this.socket.on('userConnected', data => {
-      console.log('userConnected', data)
-    })
-    this.socket.on('userDisconnected', data => {
-      console.log('userDisconnected', data)
-    })
+    this.socket.on('userDisconnected', data => this.onUserConnectionChange(this, data))
+    this.socket.on('userConnected', data => this.onUserConnectionChange(this, data))
     this.socket.on('hostJoinedRoom', data => this.onHostJoinedRoom(this, data))
     this.socket.on('playerJoinedRoom', data => this.onPlayerJoinedRoom(this, data))
     this.socket.on('error', data => this.onError(this, data))
@@ -41,6 +37,10 @@ class SocketioService {
     store.commit('SET_GAME_ID', data.gameId)
     store.commit('SET_SOCKET_ID', data.socketId)
     store.commit('SET_GAME', data.game)
+  }
+
+  onUserConnectionChange ({ store }, data) {
+    store.commit('SET_CONNECTED_USERS', Object.keys(data))
   }
 
   emit (event, body = {}) {

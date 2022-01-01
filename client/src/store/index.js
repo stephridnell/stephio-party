@@ -15,7 +15,8 @@ export default new Vuex.Store({
     socketId: '',
     game: {
       hostId: ''
-    }
+    },
+    connectedUsers: []
   },
 
   mutations: {
@@ -29,6 +30,10 @@ export default new Vuex.Store({
 
     SET_GAME (state, game) {
       state.game = { ...state.game, ...game }
+    },
+
+    SET_CONNECTED_USERS (state, connectedUsers) {
+      state.connectedUsers = [ ...connectedUsers ]
     },
 
     SET_SOCKET_ID (state, id) {
@@ -55,6 +60,7 @@ export default new Vuex.Store({
     gameId: state => state.gameId,
     isConnected: state => state.isConnected,
     isHost: (state, getters) => state.game.hostId === getters.currentUserId,
-    socketId: state => state.socketId
+    socketId: state => state.socketId,
+    connectedUsers: state => state.connectedUsers
   }
 })
