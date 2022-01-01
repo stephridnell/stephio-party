@@ -5,18 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentUser: {
-      id: ''
-    },
+    connectedUsers: [],
+    currentUser: { id: '' },
     errorMessage: '',
+    game: { hostId: '' },
     gameId: '',
     isConnected: false,
     isHost: false,
-    socketId: '',
-    game: {
-      hostId: ''
-    },
-    connectedUsers: []
+    socketId: ''
   },
 
   mutations: {
@@ -54,13 +50,14 @@ export default new Vuex.Store({
   },
 
   getters: {
+    connectedUsers: state => state.connectedUsers,
     currentUser: state => state.currentUser,
     currentUserId: state => state.currentUser?.id || '',
     errorMessage: state => state.errorMessage,
     gameId: state => state.gameId,
     isConnected: state => state.isConnected,
     isHost: (state, getters) => state.game.hostId === getters.currentUserId,
-    socketId: state => state.socketId,
-    connectedUsers: state => state.connectedUsers
+    isHostConnected: (state, getters) => getters.connectedUsers.includes(state.game.hostId),
+    socketId: state => state.socketId
   }
 })

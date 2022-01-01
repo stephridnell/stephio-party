@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    {{ connectedUsers }}
+    <div v-if="!isHostConnected">
+      host is disconnected, plz wait
+    </div>
     <host-view v-if="isHost"></host-view>
     <player-view v-else-if="gameId"></player-view>
     <div v-else>
@@ -26,8 +28,8 @@ export default {
     ...mapGetters({
       gameId: 'gameId',
       isHost: 'isHost',
-      errorMessage: 'errorMessage',
-      connectedUsers: 'connectedUsers'
+      isHostConnected: 'isHostConnected',
+      errorMessage: 'errorMessage'
     })
   },
   methods: {
