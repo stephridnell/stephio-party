@@ -9,7 +9,7 @@ export default new Vuex.Store({
     connectedUsers: [],
     currentUser: { id: '' },
     errorMessage: '',
-    game: { hostId: '' },
+    game: { hostId: '', teams: [] },
     gameId: '',
     isConnected: false,
     isHost: false,
@@ -56,6 +56,7 @@ export default new Vuex.Store({
 
   getters: {
     connectedUsers: state => state.connectedUsers,
+    currentTeams: state => state.game?.teams || [],
     currentUser: state => state.currentUser,
     currentUserId: state => state.currentUser?.id || '',
     errorMessage: state => state.errorMessage,

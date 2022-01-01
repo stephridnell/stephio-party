@@ -1,5 +1,4 @@
 const Game = require('./models/Game')
-const Team = require('./models/Team')
 const MAX_PLAYERS = 4
 
 var io
