@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
     for (const room of socket.rooms) {
       if (room !== socket.id) {
         delete users[userId]
-        socket.to(room).emit('userDisconnected', socket.id)
+        socket.to(room).emit('userDisconnected', users)
       }
     }
   })
