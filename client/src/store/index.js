@@ -56,6 +56,7 @@ export default new Vuex.Store({
 
   getters: {
     connectedUsers: state => state.connectedUsers,
+    currentTeam: (_state, getters) => getters.currentTeams?.find(el => el.userId === getters.currentUserId) || {},
     currentTeams: state => state.game?.teams || [],
     currentUser: state => state.currentUser,
     currentUserId: state => state.currentUser?.id || '',

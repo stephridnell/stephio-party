@@ -20,6 +20,7 @@ exports.initGame = function (sio, socket) {
 
   // Player Events
   gameSocket.on('playerJoinGame', playerJoinGame)
+  gameSocket.on('updateTeamInfo', updateTeamInfo)
 }
 
 /* *******************************
@@ -71,7 +72,7 @@ exports.initGame = function (sio, socket) {
  * A player clicked the 'JOIN' button.
  * Attempt to connect them to the game/room that matches
  * the gameId entered by the player.
- * @param data Contains gameId entered via player's input or url param.
+ * @param roomCode Contains gameId entered via player's input or url param.
  */
  async function playerJoinGame (roomCode) {
   console.log('Player attempting to join game: ' + roomCode )
@@ -84,13 +85,13 @@ exports.initGame = function (sio, socket) {
   if (game) {
     // Look up the room ID
     const room = io.sockets.adapter.rooms.get(roomCode)
-    let event = 'playerJoinedRoom'
+    let eventString = 'playerJoinedRoom'
 
     if (room == undefined) {
       if (!userIsHost) {
         return this.emit('error', { message: 'Host is disconnected.' } )
       }
-      event = 'hostJoinedRoom'
+      eventString = 'hostJoinedRoom'
     }
 
     // if the user is not the host and user is not in the game AND there are fewer than max allowed teams
@@ -108,7 +109,7 @@ exports.initGame = function (sio, socket) {
     this.join(roomCode)
 
     // Emit an event notifying the clients that the player has joined the room.
-    io.sockets.in(roomCode).emit(event, {
+    io.sockets.in(roomCode).emit(eventString, {
       socketId: this.id,
       gameId: roomCode,
       game
@@ -116,5 +117,21 @@ exports.initGame = function (sio, socket) {
   } else {
     // Otherwise, send an error message back to the player.
     this.emit('error', { message: 'This game does not exist.' } )
+  }
+}
+
+/**
+ * A player has entered their team info and clicked join button
+ * @param data Contains user input
+ */
+async function updateTeamInfo (data) {
+  const game = await Game.findOne({'teams._id': data.teamId, completed: false }).exec()
+  console.log(data)
+
+  const team = game?.teams?.id(data.teamId)
+  if (team) {
+    team.set({ ...team, ...data })
+    game.save()
+    io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
   }
 }
