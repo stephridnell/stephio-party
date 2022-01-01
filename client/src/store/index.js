@@ -12,7 +12,10 @@ export default new Vuex.Store({
     gameId: '',
     isConnected: false,
     isHost: false,
-    socketId: ''
+    socketId: '',
+    game: {
+      hostId: ''
+    }
   },
 
   mutations: {
@@ -22,6 +25,10 @@ export default new Vuex.Store({
 
     SET_GAME_ID (state, id) {
       state.gameId = id
+    },
+
+    SET_GAME (state, game) {
+      state.game = { ...state.game, ...game }
     },
 
     SET_SOCKET_ID (state, id) {
@@ -36,10 +43,6 @@ export default new Vuex.Store({
       state.errorMessage = message
     },
 
-    IS_HOST (state) {
-      state.isHost = true
-    },
-
     SET_PLAYER_ID (state, playerId) {
       Vue.set(state.currentUser, 'id', playerId)
     }
@@ -51,7 +54,7 @@ export default new Vuex.Store({
     errorMessage: state => state.errorMessage,
     gameId: state => state.gameId,
     isConnected: state => state.isConnected,
-    isHost: state => state.isHost,
+    isHost: (state, getters) => state.game.hostId === getters.currentUserId,
     socketId: state => state.socketId
   }
 })
