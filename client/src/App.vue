@@ -21,7 +21,6 @@ export default {
   },
   watch: {
     gameId () {
-      console.log(this.gameId)
       this.$router.replace('/' + this.gameId).catch(err => {})
     }
   },
@@ -29,7 +28,7 @@ export default {
     checkRouteForGameId () {
       if (this.$route.params.gameId) {
         this.$store.commit('SET_GAME_ID', this.$route.params.gameId)
-        this.$socket.emit('playerJoinGame', this.gameId)
+        this.$socket.emit('playerJoinGame', this.$route.params.gameId)
       }
     },
     checkLocalStorageForPlayerId () {

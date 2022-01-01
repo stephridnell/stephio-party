@@ -1,4 +1,6 @@
 const Game = require('./models/Game')
+const Team = require('./models/Team')
+const MAX_PLAYERS = 4
 
 var io
 var gameSocket
@@ -32,7 +34,7 @@ exports.initGame = function (sio, socket) {
  */
  async function hostCreateNewGame () {
   // Create a unique Socket.IO Room
-  var roomCode = ( Math.random() * 100000 ) | 0
+  var roomCode = (Math.random() * 100000) | 0
   roomCode = roomCode.toString()
 
   // create new game in mongoDB
@@ -41,8 +43,9 @@ exports.initGame = function (sio, socket) {
     hostId: this.handshake.query.userId
   })
 
+  let game = {}
   try {
-    const game = await newGame.save()
+    game = await newGame.save()
   } catch (error) {
     this.emit('error', { message: 'Error creating new game. ' + error.message } )
     return
@@ -75,20 +78,31 @@ exports.initGame = function (sio, socket) {
   console.log('Player attempting to join game: ' + roomCode )
   const game = await Game.findOne({ roomCode, completed: false }).exec()
   const userId = this.handshake.query.userId
+  const userIsHost = game.hostId === userId
 
 
   // If the game exists
   if (game) {
     // Look up the room ID
     const room = io.sockets.adapter.rooms.get(roomCode)
-
     let event = 'playerJoinedRoom'
 
     if (room == undefined) {
-      if (game.hostId !== userId) {
-        this.emit('error', { message: 'Host is disconnected.' } )
+      if (!userIsHost) {
+        return this.emit('error', { message: 'Host is disconnected.' } )
       }
       event = 'hostJoinedRoom'
+    }
+
+    // if the user is not the host and user is not in the game AND there are fewer than max allowed teams
+    if (!userIsHost) {
+      if (game.teams >= MAX_PLAYERS) {
+        return io.to(this.id).emit('error', { message: 'Game is full.' } )
+      } else if (!game.teams?.some(team => team.userId === userId)) {
+        // add new team for user
+        game.teams.push({ userId })
+        await game.save()
+      }
     }
 
     // Join the room
