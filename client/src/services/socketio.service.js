@@ -9,17 +9,20 @@ class SocketioService {
   }
 
   setupSocketConnection () {
-    this.socket = io(process.env.VUE_APP_SOCKET_ENDPOINT, { query: 'userId=' + this.store.getters.currentUserId })
+    this.socket = io(
+      process.env.VUE_APP_SOCKET_ENDPOINT,
+      { query: 'userId=' + this.store.getters.currentUserId }
+    )
     this.bindEvents()
   }
 
   bindEvents () {
-    this.socket.on('connected', data => this.onConnected(this, data))
+    this.socket.on('connected',        data => this.onConnected(this, data))
     this.socket.on('userDisconnected', data => this.onUserConnectionChange(this, data))
-    this.socket.on('userConnected', data => this.onUserConnectionChange(this, data))
-    this.socket.on('hostJoinedRoom', data => this.onHostJoinedRoom(this, data))
+    this.socket.on('userConnected',    data => this.onUserConnectionChange(this, data))
+    this.socket.on('hostJoinedRoom',   data => this.onHostJoinedRoom(this, data))
     this.socket.on('playerJoinedRoom', data => this.onPlayerJoinedRoom(this, data))
-    this.socket.on('error', data => this.onError(this, data))
+    this.socket.on('error',            data => this.onError(this, data))
   }
 
   onConnected ({ store }, data) {

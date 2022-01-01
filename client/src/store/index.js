@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { isEqual } from 'lodash'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,11 @@ export default new Vuex.Store({
     },
 
     SET_GAME (state, game) {
-      state.game = { ...state.game, ...game }
+      for (let key of Object.keys(game)) {
+        if (!isEqual(state.game[key], game[key])) {
+          Vue.set(state.game, key, game[key])
+        }
+      }
     },
 
     SET_CONNECTED_USERS (state, connectedUsers) {
