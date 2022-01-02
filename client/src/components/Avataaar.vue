@@ -2,7 +2,8 @@
   <div>
     <img :src="imgUrl" />
     <div>
-      <button @click="randomise">
+      <button @click="randomise" class="d-flex ai-center jc-sb">
+        <v-icon class="mr-6" name="random" />
         Randomise
       </button>
     </div>

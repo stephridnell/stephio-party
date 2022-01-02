@@ -6,7 +6,7 @@
     <host-view v-if="isHost"></host-view>
     <player-view v-else-if="gameId"></player-view>
     <div v-else>
-      <button @click="newGame">
+      <button class="d-flex ai-center jc-sb" @click="newGame">
         New game
       </button>
       {{ errorMessage }}
@@ -43,3 +43,63 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.d-flex {
+  display: flex;
+}
+.ai-center {
+  align-items: center;
+}
+.jc-sb {
+  justify-content: space-between;
+}
+@for $i from 0 through 500 {
+  .mt-#{$i} {
+    margin-top: #{$i}px !important;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i}px !important;
+  }
+  .mtb-#{$i} {
+    margin-bottom: #{$i}px !important;
+    margin-top: #{$i}px !important;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i}px !important;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i}px !important;
+  }
+  .mlr-#{$i} {
+    margin-left: #{$i}px !important;
+    margin-right: #{$i}px !important;
+  }
+  .m-#{$i} {
+    margin: #{$i}px !important;
+  }
+  .pt-#{$i} {
+    padding-top: #{$i}px !important;
+  }
+  .pb-#{$i} {
+    padding-bottom: #{$i}px !important;
+  }
+  .ptb-#{$i} {
+    padding-bottom: #{$i}px !important;
+    padding-top: #{$i}px !important;
+  }
+  .pl-#{$i} {
+    padding-left: #{$i}px !important;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i}px !important;
+  }
+  .plr-#{$i} {
+    padding-left: #{$i}px !important;
+    padding-right: #{$i}px !important;
+  }
+  .p-#{$i} {
+    padding: #{$i}px !important;
+  }
+}
+</style>
