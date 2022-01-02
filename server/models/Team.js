@@ -1,12 +1,7 @@
-const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 const Player = require('./Player')
 
 const schema = new Schema({
-  teamName: {
-    type: String,
-    default: ''
-  },
   userId: {
     type: String,
     default: ''

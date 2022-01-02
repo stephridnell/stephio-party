@@ -45,6 +45,21 @@ export default {
 </script>
 
 <style lang="scss">
+// colours
+$purple:#b97cef;
+$purplelighter1: lighten(adjust-hue($purple, 5), 10%);
+$purplelighter2: lighten(adjust-hue($purple, 10), 20%);
+$purpledarker1: darken(adjust-hue($purple, -5), 10%);
+$purpledarker2: darken(adjust-hue($purple, -10), 20%);
+
+:root {
+  --player0: #b083ff;
+  --player1: #ffc107;
+  --player2: #a1d762;
+  --player3: #ff5d94;
+}
+
+// display
 .d-flex {
   display: flex;
 }
@@ -54,6 +69,8 @@ export default {
 .jc-sb {
   justify-content: space-between;
 }
+
+// spacing utils
 @for $i from 0 through 500 {
   .mt-#{$i} {
     margin-top: #{$i}px !important;

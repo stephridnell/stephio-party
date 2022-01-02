@@ -3,7 +3,7 @@
     PLAYER
 
     <new-team-info
-      v-if="!currentTeam.teamName || !currentTeam.teamCaptain">
+      v-if="!currentTeam.teamCaptain">
     </new-team-info>
   </div>
 </template>

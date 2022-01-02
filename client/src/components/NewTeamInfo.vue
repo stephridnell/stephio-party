@@ -1,14 +1,13 @@
 <template>
   <div class="new-team-info">
-    <avataaar @randomised="avatarUrl = $event"></avataaar>
+    <avataaar @randomised="avatar = $event"></avataaar>
     <div>
       Your name:
       <input type="text" v-model="teamCaptain">
     </div>
-    <div>
-      Team name:
-      <input type="text" v-model="teamName">
-    </div>
+    <button>
+      Add a team mate
+    </button>
     <button @click="updateTeamInfo">
       Join
     </button>
@@ -23,8 +22,7 @@ export default {
   data () {
     return {
       teamCaptain: '',
-      teamName: '',
-      avatarUrl: ''
+      avatar: ''
     }
   },
   components: {
@@ -39,8 +37,7 @@ export default {
     updateTeamInfo () {
       this.$socket.emit('updateTeamInfo', {
         teamCaptain: this.teamCaptain,
-        teamName: this.teamName,
-        avatarUrl: this.avatarUrl,
+        avatar: this.avatar,
         teamId: this.currentTeam._id
       })
     }

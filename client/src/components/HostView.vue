@@ -3,8 +3,9 @@
     HOST
     <div>
       <h4>Teams</h4>
-      <div class="team-box" v-for="team in currentTeams" :key="team.userId">
-        {{ team.teamName || '?' }}
+      <div class="team-box" v-for="(team, index) in currentTeams" :key="team.userId">
+        <img class="avatar" :src="team.avatar" :style="'background:var(--player' + index + ');'" />
+        {{ team.teamCaptain || '?' }}
         <div v-if="!connectedUsers.includes(team.userId)">
           Offline
         </div>
@@ -31,5 +32,8 @@ export default {
 .team-box {
   border: 1px solid black;
   padding: 20px;
+}
+.avatar {
+  border-radius: 50%;
 }
 </style>
