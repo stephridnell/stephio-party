@@ -1,5 +1,6 @@
 <template>
   <div class="new-team-info">
+    <avataaar @randomised="avatarUrl = $event"></avataaar>
     <div>
       Your name:
       <input type="text" v-model="teamCaptain">
@@ -15,14 +16,19 @@
 </template>
 
 <script>
+import Avataaar from './Avataaar'
 import { mapGetters } from 'vuex'
 export default {
   name: 'NewTeamInfo',
   data () {
     return {
       teamCaptain: '',
-      teamName: ''
+      teamName: '',
+      avatarUrl: ''
     }
+  },
+  components: {
+    Avataaar
   },
   computed: {
     ...mapGetters({
@@ -34,6 +40,7 @@ export default {
       this.$socket.emit('updateTeamInfo', {
         teamCaptain: this.teamCaptain,
         teamName: this.teamName,
+        avatarUrl: this.avatarUrl,
         teamId: this.currentTeam._id
       })
     }

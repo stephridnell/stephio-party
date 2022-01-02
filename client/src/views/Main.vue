@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="game-wrapper">
     <div v-if="!isHostConnected">
       host is disconnected, plz wait
     </div>
+    <player-view></player-view>
     <host-view v-if="isHost"></host-view>
-    <player-view v-else-if="gameId"></player-view>
     <div v-else>
       <button @click="newGame">
         New game

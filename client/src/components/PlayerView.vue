@@ -2,8 +2,7 @@
   <div class="host-view">
     PLAYER
 
-    <new-team-info
-      v-if="!currentTeam.teamName || !currentTeam.teamCaptain">
+    <new-team-info>
     </new-team-info>
   </div>
 </template>
