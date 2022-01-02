@@ -4,8 +4,14 @@
     <div>
       <h4>Teams</h4>
       <div class="team-box" v-for="(team, index) in currentTeams" :key="team.userId">
-        <img class="avatar" :src="team.avatar" :style="'background:var(--player' + index + ');'" />
-        {{ team.teamCaptain || '?' }}
+        <div>
+          <img class="avatar" :src="team.avatar" :style="'background:var(--player' + index + ');'" />
+          {{ team.teamCaptain || '?' }}
+        </div>
+        <div v-if="team.players && team.players[0]">
+          <img class="avatar" :src="team.players[0].avatar" :style="'background:var(--player' + index + ');'" />
+          {{ team.players[0].name }}
+        </div>
         <div v-if="!connectedUsers.includes(team.userId)">
           Offline
         </div>
@@ -35,5 +41,7 @@ export default {
 }
 .avatar {
   border-radius: 50%;
+  height: 100px;
+  width: 100px;
 }
 </style>

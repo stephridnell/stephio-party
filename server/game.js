@@ -133,5 +133,7 @@ async function updateTeamInfo (data) {
     team.set({ ...team, ...data })
     game.save()
     io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
+  } else {
+    io.to(this.id).emit('error', { message: 'Team not found.' } )
   }
 }

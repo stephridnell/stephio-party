@@ -11,7 +11,8 @@ const schema = new Schema({
     type: String
   },
   miniGameWins: {
-    type: Number
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true
