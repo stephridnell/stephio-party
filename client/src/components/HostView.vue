@@ -1,21 +1,29 @@
 <template>
   <div class="host-view">
-    HOST
-    <div>
-      <h4>Teams</h4>
-      <div class="team-box" v-for="(team, index) in currentTeams" :key="team.userId">
-        <div>
-          <img class="avatar" :src="team.avatar" :style="'background:var(--player' + index + ');'" />
-          {{ team.teamCaptain || '?' }}
+    <div class="container p-20">
+      <div class="box p-20" v-for="(team, index) in maxTeams" :style="'background:var(--player' + index + ');'" :key="index">
+        <div v-if="currentTeams[index]">
+          <div>
+            <img class="avatar" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + ');'" />
+            {{ currentTeams[index].teamCaptain || '?' }}
+          </div>
+          <div v-if="currentTeams[index].players && currentTeams[index].players[0]">
+            <img class="avatar" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + ');'" />
+            {{ currentTeams[index].players[0].name }}
+          </div>
+          <div v-if="!connectedUsers.includes(currentTeams[index].userId)">
+            Offline
+          </div>
         </div>
-        <div v-if="team.players && team.players[0]">
-          <img class="avatar" :src="team.players[0].avatar" :style="'background:var(--player' + index + ');'" />
-          {{ team.players[0].name }}
-        </div>
-        <div v-if="!connectedUsers.includes(team.userId)">
-          Offline
+        <div v-else>
+          Waiting for players...
         </div>
       </div>
+    </div>
+    <div>
+      <button>
+        Start
+      </button>
     </div>
   </div>
 </template>
@@ -30,6 +38,11 @@ export default {
       connectedUsers: 'connectedUsers',
       currentTeams: 'currentTeams'
     })
+  },
+  data () {
+    return {
+      maxTeams: 4
+    }
   }
 }
 </script>

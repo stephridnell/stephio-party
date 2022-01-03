@@ -59,6 +59,18 @@ $purpledarker2: darken(adjust-hue($purple, -10), 20%);
   --player3: #ff5d94;
 }
 
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  width: 100%;
+  min-height: 100vh;
+}
+
 // display
 .d-flex {
   display: flex;
@@ -68,6 +80,17 @@ $purpledarker2: darken(adjust-hue($purple, -10), 20%);
 }
 .jc-sb {
   justify-content: space-between;
+}
+
+.container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.box {
+  display: grid;
+  place-items: center;
 }
 
 // spacing utils
