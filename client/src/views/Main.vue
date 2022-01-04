@@ -1,7 +1,7 @@
 <template>
   <div id="game-wrapper">
     <div v-if="!isHostConnected">
-      host is disconnected, plz wait
+      Host is disconnected - please wait or refresh page.
     </div>
     <host-view v-if="isHost"></host-view>
     <player-view v-else-if="gameId"></player-view>
