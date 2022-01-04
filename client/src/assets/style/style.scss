@@ -2,9 +2,13 @@
 
 :root {
   --player0: #b083ff;
+  --player0darker: #985dff;
   --player1: #ffc107;
+  --player1darker: #cc9900;
   --player2: #a1d762;
+  --player2darker: #7cb33e;
   --player3: #ff5d94;
+  --player3darker: #ca4370;
 }
 
 body {
@@ -134,6 +138,10 @@ a {
   color: #ffcc70;
 }
 
+.white {
+  color: #fff;
+}
+
 .text-center {
   text-align: center;
 }
@@ -142,9 +150,26 @@ a {
   width: 100%;
   height: 100%;
   background: #fff;
-  border-radius: 28px;
+  border-radius: 64px;
   border: none;
   box-shadow: 0 12px 0px 0px #e7e7e7
+}
+
+.card-body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-caps {
+  text-transform: uppercase;
 }
 
 @for $i from 0 through 500 {

@@ -46,4 +46,7 @@ export default {
 
 <style lang="scss">
 @import '../assets/style/style.scss';
+#game-wrapper {
+  height: 100%;
+}
 </style>
