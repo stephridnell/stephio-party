@@ -13,7 +13,7 @@ const schema = new Schema({
   },
   turns: {
     type: Number,
-    default: 10,
+    default: 20,
     required: true
   },
   currentTurn: {

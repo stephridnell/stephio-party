@@ -65,7 +65,8 @@ export default {
     ...mapGetters({
       gameId: 'gameId',
       connectedUsers: 'connectedUsers',
-      currentTeams: 'currentTeams'
+      currentTeams: 'currentTeams',
+      gameStarted: 'gameStarted'
     }),
     ready () {
       return this.maxTeams === this.currentTeams.length
