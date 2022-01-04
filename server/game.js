@@ -105,7 +105,7 @@ async function hostKickPlayer (data) {
 
     if (room == undefined) {
       if (!userIsHost) {
-        return this.emit('error', { message: 'Host is disconnected.' } )
+        return this.emit('error', { message: 'Host is disconnected. Refresh the host device and try to join again.' } )
       }
       eventString = 'hostJoinedRoom'
     }
