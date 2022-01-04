@@ -80,16 +80,25 @@ export default {
         'rotateX(540deg) rotateY(630deg) translate3d(0px,0px,0px)', //5
         'rotateX(-540deg) rotateY(720deg) translate3d(0px,0px,0px)' //6
       ],
-      currentValue: ''
+      currentValue: '',
+      rolled: false
     }
   },
   methods: {
+    resetRoll () {
+      this.rolled = false
+    },
     roll () {
+      if (this.rolled) {
+        return
+      }
       do {
         var rotate = this.values[Math.floor(Math.random() * this.values.length)]
       } while (this.currentValue === rotate)
       this.currentValue = rotate
       this.$refs.dice.style.transform = rotate + 'scale3d(0.7,0.7,0.7)'
+      this.$emit('roll', (this.values.indexOf(rotate) + 1) % 6)
+      this.rolled = true
     }
   }
 }
@@ -124,7 +133,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 0 3px rgba(31, 38, 135, 0.37);
   display: flex;
   justify-content: space-around;
