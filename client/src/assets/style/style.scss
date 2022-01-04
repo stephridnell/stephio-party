@@ -115,6 +115,7 @@ button:active, .button:active {
 }
 .player2 {
   button, .button {
+    color: var(--text-dark);
     box-shadow: 0 7px 0px 0px var(--player2darkest);
     background: var(--player2);
   }
