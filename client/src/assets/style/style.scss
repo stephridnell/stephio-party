@@ -95,6 +95,16 @@ button, .button {
   }
 }
 
+select {
+  font-size: 24px;
+  font-family: proxima-soft, sans-serif;
+  font-weight: bold;
+  border: none;
+  background: white;
+  border-radius: 12px;
+  padding: 7px;
+}
+
 button:active, .button:active {
   transform: translateY(4px);
   box-shadow: 0 3px 0px 0px #2E9947;

@@ -34,11 +34,19 @@
         </div>
       </div>
     </div>
-    <div class="text-center white p-20 text-bold text-caps ptb-50">
+    <div class="text-center white p-20 text-bold text-caps pt-50">
       Game code
       <div class="text-60">
         {{ gameId }}
       </div>
+    </div>
+    <div class="text-center white p-20 text-bold text-caps">
+      Turns:
+      <select name="turns" v-model="turns">
+        <option v-for="n of 7" :key="n" :value="n * 5">
+          {{ n * 5 }}
+        </option>
+      </select>
     </div>
     <div class="text-center">
       <button class="text-40 text-bold" @click="startGame" :disabled="!ready">
@@ -65,7 +73,8 @@ export default {
   },
   data () {
     return {
-      maxTeams: 4
+      maxTeams: 4,
+      turns: 20
     }
   },
   methods: {
