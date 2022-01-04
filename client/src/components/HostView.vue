@@ -1,22 +1,27 @@
 <template>
   <div class="host-view">
-    <div class="container p-20">
-      <div class="box p-20" v-for="(team, index) in maxTeams" :style="'background:var(--player' + index + ');'" :key="index">
-        <div v-if="currentTeams[index]">
-          <div>
-            <img class="avatar" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + ');'" />
-            {{ currentTeams[index].teamCaptain || '?' }}
+    <div class="container">
+      <div class="box" v-for="(team, index) in maxTeams" :key="index" style="border-radius:28px;box-shadow: rgb(0 0 0 / 35%) 0px 0px 18px 0px;">
+        <div class="card mb-26">
+          <div class="p-12" :style="'background:var(--player' + index + ');width: 100%; border-radius: 28px 28px 0 0;'">
+            Team {{ index + 1 }}
           </div>
-          <div v-if="currentTeams[index].players && currentTeams[index].players[0]">
-            <img class="avatar" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + ');'" />
-            {{ currentTeams[index].players[0].name }}
+          <div class="p-20" v-if="currentTeams[index]">
+            <div class="d-flex ai-center">
+              <img class="avatar mr-12" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + ');'" />
+              {{ currentTeams[index].teamCaptain || '?' }}
+            </div>
+            <div class="d-flex ai-center" v-if="currentTeams[index].players && currentTeams[index].players[0]">
+              <img class="avatar mr-12" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + ');'" />
+              {{ currentTeams[index].players[0].name }}
+            </div>
+            <div v-if="!connectedUsers.includes(currentTeams[index].userId)">
+              Offline
+            </div>
           </div>
-          <div v-if="!connectedUsers.includes(currentTeams[index].userId)">
-            Offline
+          <div class="p-20" v-else>
+            Waiting for players...
           </div>
-        </div>
-        <div v-else>
-          Waiting for players...
         </div>
       </div>
     </div>
