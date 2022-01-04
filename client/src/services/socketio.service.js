@@ -25,11 +25,16 @@ class SocketioService {
     this.socket.on('userConnected',    data => this.onUserConnectionChange(this, data))
     this.socket.on('userDisconnected', data => this.onUserConnectionChange(this, data))
     this.socket.on('playerKicked',     data => this.onUserKicked(this, data))
+    this.socket.on('gameStarted',      data => this.onGameStarted(this, data))
   }
 
   onConnected ({ store }, data) {
     store.commit('SET_SOCKET_ID', data.socketId)
     store.commit('SOCKET_CONNECT')
+  }
+
+  onGameStarted ({ store }, data) {
+    store.commit('SET_GAME', data.game)
   }
 
   onUserKicked ({ store }, data) {

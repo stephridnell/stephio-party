@@ -9,7 +9,7 @@ export default new Vuex.Store({
     connectedUsers: [],
     currentUser: { id: '' },
     errorMessage: '',
-    game: { hostId: '', teams: [] },
+    game: { hostId: '', teams: [], currentTurn: 0 },
     gameId: '',
     isConnected: false,
     isHost: false,
@@ -73,6 +73,6 @@ export default new Vuex.Store({
     socketId: state => state.socketId,
     playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) ?? 'host',
     kicked: state => state.kicked,
-    gameStarted: state => !!state.game?.turn
+    gameStarted: state => !!state.game?.currentTurn
   }
 })

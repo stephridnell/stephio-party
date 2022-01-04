@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     startGame () {
-      console.log('start')
+      this.$socket.emit('hostStartGame', { gameId: this.gameId, turns: this.turns })
     },
     kickPlayer (userId) {
       this.$socket.emit('hostKickPlayer', { userId, gameId: this.gameId })
