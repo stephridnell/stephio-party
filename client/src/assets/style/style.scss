@@ -16,6 +16,9 @@
 
   --text-dark: #37384c;
   --text-light: #fff;
+
+  --red: #FF6463;
+  --reddarker: #f52269;
 }
 
 body {
@@ -86,6 +89,10 @@ button, .button {
   border: none;
   box-shadow: 0 7px 0px 0px #2E9947;
   display: inline-block;
+  &.button-small {
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+  }
 }
 
 button:active, .button:active {
@@ -120,6 +127,13 @@ button:active, .button:active {
   }
 }
 
+button, .button {
+  &.danger {
+    box-shadow: 0 7px 0px 0px var(--reddarker);
+    background: var(--red);
+  }
+}
+
 button:active, .button:active {
   transform: translateY(4px);
   box-shadow: 0 3px 0px 0px #2E9947;
@@ -129,6 +143,19 @@ button[disabled], .button[disabled] {
   filter: grayscale(100%);
   opacity: 0.5;
   cursor: default;
+}
+
+input {
+  font-family: proxima-soft, sans-serif;
+  text-transform: uppercase;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 14px;
+  background: white;
+  border: none;
+  outline: none;
 }
 
 a {
@@ -164,7 +191,7 @@ a {
 }
 
 .red {
-  color: #FF6463;
+  color: var(--red);
 }
 
 .blue {

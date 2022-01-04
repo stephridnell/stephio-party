@@ -1,8 +1,8 @@
 <template>
   <div class="avataaar">
     <img class="new-avatar" :src="imgUrl" />
-    <button @click="randomise" class="d-flex ai-center jc-sb white text-16 text-bold mt-12">
-      <v-icon class="mr-6" name="random" />
+    <button @click="randomise" class="button-small d-flex ai-center jc-sb white text-12 text-bold mt-4">
+      <v-icon class="mr-6" name="random" scale="0.8" />
       Randomise
     </button>
   </div>
@@ -86,8 +86,11 @@ export default {
 
 <style>
 .new-avatar {
-  width: 200px;
-  height: 200px;
+  border-radius: 50%;
+  background: #fff;
+  width: 150px;
+  height: 150px;
+  box-shadow: rgb(0 0 0 / 35%) 0px 0px 18px 0px;
 }
 .avataaar {
   display: flex;

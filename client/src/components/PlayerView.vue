@@ -24,5 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.player-view {
+  height: 100%;
+}
 </style>
