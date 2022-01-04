@@ -94,7 +94,7 @@ async function hostKickPlayer (data) {
   console.log('Player attempting to join game: ' + roomCode )
   const game = await Game.findOne({ roomCode, completed: false }).exec()
   const userId = this.handshake.query.userId
-  const userIsHost = game.hostId === userId
+  const userIsHost = game?.hostId === userId
 
 
   // If the game exists
@@ -132,7 +132,7 @@ async function hostKickPlayer (data) {
     })
   } else {
     // Otherwise, send an error message back to the player.
-    this.emit('error', { message: 'This game does not exist.' } )
+    this.emit('error', { message: 'Game with code ' + roomCode + ' does not exist.' } )
   }
 }
 
