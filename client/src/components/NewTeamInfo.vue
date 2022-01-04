@@ -22,7 +22,7 @@
     <div v-if="error">
       {{ error }}
     </div>
-    <button class="d-flex ai-center jc-sb white text-32 text-bold mt-20" @click="updateTeamInfo">
+    <button class="d-flex ai-center jc-sb white text-32 text-bold mt-40" @click="updateTeamInfo">
       <v-icon class="mr-6" scale="2" name="sign-in-alt" />
       Join
     </button>
