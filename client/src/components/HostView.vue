@@ -5,14 +5,14 @@
     </div>
     <div class="container p-30">
       <div class="box" v-for="(team, index) in maxTeams" :key="index" style="border-radius:64px;box-shadow: rgb(0 0 0 / 35%) 0px 0px 18px 0px;">
-        <div class="card mb-26" :class="{ 'greyscale': currentTeams[index] && !connectedUsers.includes(currentTeams[index].userId) }" :style="'background:var(--player' + index + ');box-shadow: 0 12px 0px 0px var(--player' + index + 'darker)'">
+        <div class="card mb-26" :class="{ 'greyscale': currentTeams[index] && !connectedUsers.includes(currentTeams[index].userId) }" :style="'background:linear-gradient(180deg, var(--player' + index + ') 0%, var(--player' + index + 'darker) 100%);box-shadow: 0 12px 0px 0px var(--player' + index + 'darkest)'">
           <div class="p-20 card-body" v-if="currentTeams[index]">
             <div class="d-flex ai-center">
-              <img class="avatar mr-12" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + 'darker);'" />
-              <img v-if="currentTeams[index].players && currentTeams[index].players[0]" class="avatar" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + 'darker);'" />
+              <img class="avatar" :class="{ 'mr-12': currentTeams[index].players && currentTeams[index].players[0] }" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + 'darkest);'" />
+              <img v-if="currentTeams[index].players && currentTeams[index].players[0]" class="avatar" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + 'darkest);'" />
             </div>
 
-            <div class="d-flex ai-center text-24 text-bold text-caps">
+            <div class="d-flex ai-center text-24 text-bold text-caps mt-12">
               {{ currentTeams[index].teamCaptain || '?' }}
               <div v-if="currentTeams[index].players && currentTeams[index].players[0]">
                 &nbsp;&amp; {{ currentTeams[index].players[0].name }}
