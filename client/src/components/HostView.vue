@@ -22,6 +22,11 @@
             <div class="text-bold text-caps" v-if="!connectedUsers.includes(currentTeams[index].userId)">
               Offline
             </div>
+
+            <button @click="kickPlayer(currentTeams[index].userId)" class="danger button-small d-flex ai-center jc-sb white text-12 text-bold mt-12">
+              <v-icon class="mr-6" name="ban" />
+              Kick
+            </button>
           </div>
           <div class="p-20 card-body text-16 text-bold text-caps" v-else>
             Waiting for players...
@@ -66,6 +71,9 @@ export default {
   methods: {
     startGame () {
       console.log('start')
+    },
+    kickPlayer (userId) {
+      this.$socket.emit('hostKickPlayer', { userId, gameId: this.gameId })
     }
   }
 }

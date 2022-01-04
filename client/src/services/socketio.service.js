@@ -24,11 +24,21 @@ class SocketioService {
     this.socket.on('playerJoinedRoom', data => this.onPlayerJoinedRoom(this, data))
     this.socket.on('userConnected',    data => this.onUserConnectionChange(this, data))
     this.socket.on('userDisconnected', data => this.onUserConnectionChange(this, data))
+    this.socket.on('playerKicked',     data => this.onUserKicked(this, data))
   }
 
   onConnected ({ store }, data) {
     store.commit('SET_SOCKET_ID', data.socketId)
     store.commit('SOCKET_CONNECT')
+  }
+
+  onUserKicked ({ store }, data) {
+    let game = data.game
+    if (store.getters.currentUserId === data.userId) {
+      store.commit('KICKED')
+      game = {}
+    }
+    store.commit('SET_GAME', game)
   }
 
   onPlayerJoinedRoom ({ store }, data) {
@@ -42,7 +52,6 @@ class SocketioService {
   }
 
   onGameDataUpdated ({ store }, data) {
-    console.log('game dat upates', data)
     store.commit('SET_GAME', data.game)
   }
 

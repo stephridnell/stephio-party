@@ -17,6 +17,7 @@ exports.initGame = function (sio, socket) {
 
   // Host Events
   gameSocket.on('hostCreateNewGame', hostCreateNewGame)
+  gameSocket.on('hostKickPlayer', hostKickPlayer)
 
   // Player Events
   gameSocket.on('playerJoinGame', playerJoinGame)
@@ -60,6 +61,21 @@ exports.initGame = function (sio, socket) {
 
   // Join the Room and wait for the players to join
   this.join(roomCode)
+}
+
+/* Kick button clicked on team - remove the team from the game */
+async function hostKickPlayer (data) {
+  const game = await Game.findOne({ roomCode: data.gameId }).exec()
+  const userId = data.userId
+
+  if (game) {
+    game.teams = game.teams.filter(el => el.userId !== userId)
+    await game.save()
+    io.sockets.in(game.roomCode).emit('playerKicked', { game, userId })
+  } else {
+    this.emit('error', { message: 'This game does not exist.' } )
+  }
+
 }
 
 /* *****************************

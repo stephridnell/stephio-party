@@ -1,7 +1,10 @@
 <template>
   <div class="player-view" :class="'player' + playerNumber">
+    <div v-if="kicked">
+      You have been kicked from the game. Refresh to rejoin.
+    </div>
     <new-team-info
-      v-if="!currentTeam.teamCaptain">
+      v-else-if="!currentTeam.teamCaptain">
     </new-team-info>
   </div>
 </template>
@@ -17,7 +20,8 @@ export default {
   computed: {
     ...mapGetters({
       currentTeam: 'currentTeam',
-      playerNumber: 'playerNumber'
+      playerNumber: 'playerNumber',
+      kicked: 'kicked'
     })
   }
 }
