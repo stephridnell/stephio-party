@@ -65,6 +65,7 @@ export default new Vuex.Store({
     isConnected: state => state.isConnected,
     isHost: (state, getters) => state.game.hostId === getters.currentUserId,
     isHostConnected: (state, getters) => getters.connectedUsers.includes(state.game.hostId),
-    socketId: state => state.socketId
+    socketId: state => state.socketId,
+    playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) || -1
   }
 })

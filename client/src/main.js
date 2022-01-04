@@ -7,6 +7,8 @@ import Icon from 'vue-awesome/components/Icon'
 
 // individual icons
 import 'vue-awesome/icons/random'
+import 'vue-awesome/icons/sign-in-alt'
+import 'vue-awesome/icons/plus'
 
 Vue.config.productionTip = false
 Vue.prototype.$socket = new Socket(store)

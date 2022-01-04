@@ -13,6 +13,9 @@
   --player3: #ff75a4;
   --player3darker: #f52269;
   --player3darkest: #db004a;
+
+  --text-dark: #37384c;
+  --text-light: #fff;
 }
 
 body {
@@ -63,8 +66,6 @@ h2 {
 
 button, .button {
   font-family: proxima-soft, sans-serif;
-  font-size: 40px;
-  font-weight: bold;
   color: #fff;
   background: #5CBA74;
   border-radius: 14px;
@@ -85,6 +86,37 @@ button, .button {
   border: none;
   box-shadow: 0 7px 0px 0px #2E9947;
   display: inline-block;
+}
+
+button:active, .button:active {
+  transform: translateY(4px);
+  box-shadow: 0 3px 0px 0px #2E9947;
+}
+
+.player0 {
+  button, .button {
+    box-shadow: 0 7px 0px 0px var(--player0darkest);
+    background: var(--player0);
+  }
+}
+.player1 {
+  button, .button {
+    color: var(--text-dark);
+    box-shadow: 0 7px 0px 0px var(--player1darkest);
+    background: var(--player1);
+  }
+}
+.player2 {
+  button, .button {
+    box-shadow: 0 7px 0px 0px var(--player2darkest);
+    background: var(--player2);
+  }
+}
+.player3 {
+  button, .button {
+    box-shadow: 0 7px 0px 0px var(--player3darkest);
+    background: var(--player3);
+  }
 }
 
 button:active, .button:active {
@@ -144,6 +176,10 @@ a {
 
 .white {
   color: #fff;
+}
+
+svg {
+  fill: currentColor;
 }
 
 .greyscale {

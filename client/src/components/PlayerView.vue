@@ -1,7 +1,5 @@
 <template>
-  <div class="host-view">
-    PLAYER
-
+  <div class="player-view" :class="'player' + playerNumber">
     <new-team-info
       v-if="!currentTeam.teamCaptain">
     </new-team-info>
@@ -18,7 +16,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentTeam: 'currentTeam'
+      currentTeam: 'currentTeam',
+      playerNumber: 'playerNumber'
     })
   }
 }

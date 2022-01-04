@@ -1,14 +1,17 @@
 <template>
   <div class="new-team-info">
-    {{ $store.state.game }}
-    <avataaar @randomised="avatar = $event"></avataaar>
+    <avataaar class="mb-12" @randomised="avatar = $event"></avataaar>
     <div>
       Your name:
       <input type="text" v-model="teamCaptain">
     </div>
-    <button v-if="!addTeamMate" @click="addTeamMate = true">
+
+
+    <button v-if="!addTeamMate" @click="addTeamMate = true" class="d-flex ai-center jc-sb white text-16 text-bold mt-12">
+      <v-icon class="mr-6" name="plus" />
       Add a team mate
     </button>
+
     <div v-if="addTeamMate">
       <avataaar @randomised="teamMateAvatar = $event"></avataaar>
       <div>
@@ -19,7 +22,8 @@
     <div v-if="error">
       {{ error }}
     </div>
-    <button @click="updateTeamInfo">
+    <button class="d-flex ai-center jc-sb white text-32 text-bold mt-20" @click="updateTeamInfo">
+      <v-icon class="mr-6" scale="2" name="sign-in-alt" />
       Join
     </button>
   </div>
@@ -79,5 +83,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.new-team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

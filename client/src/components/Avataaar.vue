@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <img :src="imgUrl" />
-    <div>
-      <button @click="randomise" class="d-flex ai-center jc-sb">
-        <v-icon class="mr-6" name="random" />
-        Randomise
-      </button>
-    </div>
+  <div class="avataaar">
+    <img class="new-avatar" :src="imgUrl" />
+    <button @click="randomise" class="d-flex ai-center jc-sb white text-16 text-bold mt-12">
+      <v-icon class="mr-6" name="random" />
+      Randomise
+    </button>
   </div>
 </template>
 
@@ -87,5 +85,13 @@ export default {
 </script>
 
 <style>
-
+.new-avatar {
+  width: 200px;
+  height: 200px;
+}
+.avataaar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

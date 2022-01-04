@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="text-center">
-      <button @click="startGame" :disabled="!ready">
+      <button class="text-40 text-bold" @click="startGame" :disabled="!ready">
         Start
       </button>
     </div>
