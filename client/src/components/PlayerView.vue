@@ -27,7 +27,6 @@
       <div class="text-center" v-if="!gameStarted">
         Waiting for host to start game
       </div>
-      <dice></dice>
     </div>
   </div>
 </template>
@@ -38,8 +37,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PlayerView',
   components: {
-    NewTeamInfo: () => import('./NewTeamInfo'),
-    Dice: () => import('./Dice')
+    NewTeamInfo: () => import('./NewTeamInfo')
   },
   computed: {
     ...mapGetters({
