@@ -20,7 +20,7 @@ const schema = new Schema({
   },
   coins: {
     type: Number,
-    default: 0
+    default: 10
   },
   greenSpaces: {
     type: Number,
@@ -28,7 +28,7 @@ const schema = new Schema({
   },
   maxCoins: {
     type: Number,
-    default: 0
+    default: 10
   },
   miniGameCoins: {
     type: Number,
