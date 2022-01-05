@@ -10,7 +10,6 @@
 
     <div class="d-flex fd-col jc-center" v-else>
       <team-card
-        class="mtb-20 mlr-10"
         :team="currentTeam"
         :minimised="minimised"
         :index="playerNumber">
