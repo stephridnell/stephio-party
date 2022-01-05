@@ -35,6 +35,9 @@ const schema = new Schema({
   miniGameCoins: {
     type: Number,
     default: 0
+  },
+  initialRoll: {
+    type: Number
   }
 }, {
   timestamps: true
