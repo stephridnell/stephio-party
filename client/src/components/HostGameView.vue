@@ -1,12 +1,13 @@
 <template>
   <div class="host-game-view view">
     <div class="container p-30">
-      <team-card
-        v-for="(team, index) in currentTeams"
-        :team="team"
-        :index="index"
-        :key="index">
-      </team-card>
+      <div class="box" v-for="(team, index) in currentTeams" :key="index">
+        <team-card
+          :team="team"
+          :index="index">
+        </team-card>
+        <rolling :team="team"></rolling>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +18,8 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'HostGameView',
   components: {
-    TeamCard: () => import('./TeamCard.vue')
+    TeamCard: () => import('./TeamCard.vue'),
+    Rolling: () => import('./Rolling.vue')
   },
   computed: {
     ...mapGetters({
@@ -27,6 +29,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
 </style>

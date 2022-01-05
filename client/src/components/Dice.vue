@@ -97,7 +97,9 @@ export default {
       } while (this.currentValue === rotate)
       this.currentValue = rotate
       this.$refs.dice.style.transform = rotate + 'scale3d(0.7,0.7,0.7)'
-      this.$emit('roll', (this.values.indexOf(rotate) + 1) % 6)
+      let value = (this.values.indexOf(rotate) + 1) % 6
+      if (value === 0) value = 6
+      this.$emit('roll', value)
       this.rolled = true
     }
   }

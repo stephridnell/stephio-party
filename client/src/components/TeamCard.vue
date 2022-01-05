@@ -1,6 +1,6 @@
 <template>
-  <div class="box">
-    <div class="card mb-26" :class="{ 'greyscale': team && !connectedUsers.includes(team.userId) }" :style="'background:linear-gradient(180deg, var(--player' + index + ') 0%, var(--player' + index + 'darker) 100%);box-shadow: 0 12px 0px 0px var(--player' + index + 'darkest)'">
+  <div class="card-wrapper mb-26">
+    <div class="card" :class="{ 'greyscale': team && !connectedUsers.includes(team.userId) }" :style="'background:linear-gradient(180deg, var(--player' + index + ') 0%, var(--player' + index + 'darker) 100%);box-shadow: 0 12px 0px 0px var(--player' + index + 'darkest)'">
       <div class="card-body" :class="{ 'p-20': !minimised }" v-if="team">
         <div class="d-flex ai-center" v-if="!minimised">
           <img class="avatar" :class="{ 'mr-12': team.players && team.players[0] }" :src="team.avatar" :style="'background:var(--player' + index + 'darkest);'" />

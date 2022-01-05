@@ -23,6 +23,7 @@ exports.initGame = function (sio, socket) {
   // Player Events
   gameSocket.on('playerJoinGame', playerJoinGame)
   gameSocket.on('updateTeamInfo', updateTeamInfo)
+  gameSocket.on('playerInitialRoll', playerInitialRoll)
 }
 
 /* *******************************
@@ -89,7 +90,6 @@ async function hostStartGame (data) {
   } else {
     this.emit('error', { message: 'This game does not exist.' } )
   }
-
 }
 
 /* *****************************
@@ -156,7 +156,6 @@ async function hostStartGame (data) {
  */
 async function updateTeamInfo (data) {
   const game = await Game.findOne({'teams._id': data.teamId, completed: false }).exec()
-  console.log(data)
 
   const team = game?.teams?.id(data.teamId)
   if (team) {
@@ -166,4 +165,18 @@ async function updateTeamInfo (data) {
   } else {
     io.to(this.id).emit('error', { message: 'Team not found.' } )
   }
+}
+
+async function playerInitialRoll (data) {
+  const game = await Game.findOne({'teams._id': data.teamId, completed: false }).exec()
+  const team = game?.teams?.id(data.teamId)
+
+  if (team) {
+    team.set({ ...team, initialRoll: data.roll })
+    game.save()
+    io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
+  } else {
+    io.to(this.id).emit('error', { message: 'Team not found.' } )
+  }
+
 }
