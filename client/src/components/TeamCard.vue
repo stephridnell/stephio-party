@@ -14,6 +14,15 @@
           </div>
         </div>
 
+        <div v-if="gameStarted">
+          <div class="d-flex ai-center jc-sb text-bold text-40 white m-12">
+            <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')"> x {{ team.coins }}
+          </div>
+          <div class="d-flex ai-center jc-sb text-bold text-40 white m-12">
+            <img class="team-asset mr-12" :src="require('@/assets/img/star.png')"> x {{ team.stars }}
+          </div>
+        </div>
+
         <slot></slot>
       </div>
       <div class="p-20 card-body text-16 text-bold text-caps" v-else>
@@ -39,12 +48,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      connectedUsers: 'connectedUsers'
+      connectedUsers: 'connectedUsers',
+      gameStarted: 'gameStarted'
     })
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.team-asset {
+  width: 60px;
+  height: auto;
+}
 </style>
