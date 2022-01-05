@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose')
 const Player = require('./Player')
+const Turn = require('./Turn')
 
 const schema = new Schema({
   userId: {
@@ -11,6 +12,7 @@ const schema = new Schema({
     default: ''
   },
   players: [Player],
+  turns: [Turn],
   avatar: {
     type: String
   },
