@@ -1,36 +1,23 @@
 <template>
   <div class="waiting-view view">
     <div class="container p-30">
-      <div class="box" v-for="(team, index) in maxTeams" :key="index" style="border-radius:64px;box-shadow: rgb(0 0 0 / 35%) 0px 0px 18px 0px;">
-        <div class="card mb-26" :class="{ 'greyscale': currentTeams[index] && !connectedUsers.includes(currentTeams[index].userId) }" :style="'background:linear-gradient(180deg, var(--player' + index + ') 0%, var(--player' + index + 'darker) 100%);box-shadow: 0 12px 0px 0px var(--player' + index + 'darkest)'">
-          <div class="p-20 card-body" v-if="currentTeams[index]">
-            <div class="d-flex ai-center">
-              <img class="avatar" :class="{ 'mr-12': currentTeams[index].players && currentTeams[index].players[0] }" :src="currentTeams[index].avatar" :style="'background:var(--player' + index + 'darkest);'" />
-              <img v-if="currentTeams[index].players && currentTeams[index].players[0]" class="avatar" :src="currentTeams[index].players[0].avatar" :style="'background:var(--player' + index + 'darkest);'" />
-            </div>
+      <team-card
+        v-for="(team, index) in maxTeams"
+        :team="currentTeams[index]"
+        :index="index"
+        :key="index">
 
-            <div class="d-flex ai-center text-24 text-bold text-caps mt-12">
-              {{ currentTeams[index].teamCaptain || '?' }}
-              <div v-if="currentTeams[index].players && currentTeams[index].players[0]">
-                &nbsp;&amp; {{ currentTeams[index].players[0].name }}
-              </div>
-            </div>
-
-            <div class="text-bold text-caps" v-if="!connectedUsers.includes(currentTeams[index].userId)">
-              Offline
-            </div>
-
-            <button @click="kickPlayer(currentTeams[index].userId)" class="danger button-small d-flex ai-center jc-sb white text-12 text-bold mt-12">
-              <v-icon class="mr-6" name="ban" />
-              Kick
-            </button>
-          </div>
-          <div class="p-20 card-body text-16 text-bold text-caps" v-else>
-            Waiting for players...
-          </div>
+        <div class="text-bold text-caps" v-if="!connectedUsers.includes(currentTeams[index].userId)">
+          Offline
         </div>
-      </div>
+
+        <button @click="kickPlayer(currentTeams[index].userId)" class="danger button-small d-flex ai-center jc-sb white text-12 text-bold mt-12">
+          <v-icon class="mr-6" name="ban" />
+          Kick
+        </button>
+      </team-card>
     </div>
+
     <div class="text-center white p-20 text-bold text-caps pt-50">
       Game code
       <div class="text-60">
@@ -58,6 +45,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'WaitingView',
+  components: {
+    TeamCard: () => import('./TeamCard.vue')
+  },
   computed: {
     ...mapGetters({
       gameId: 'gameId',
