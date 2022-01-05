@@ -1,5 +1,5 @@
 <template>
-  <div class="waiting-view">
+  <div class="waiting-view view">
     <div class="container p-30">
       <div class="box" v-for="(team, index) in maxTeams" :key="index" style="border-radius:64px;box-shadow: rgb(0 0 0 / 35%) 0px 0px 18px 0px;">
         <div class="card mb-26" :class="{ 'greyscale': currentTeams[index] && !connectedUsers.includes(currentTeams[index].userId) }" :style="'background:linear-gradient(180deg, var(--player' + index + ') 0%, var(--player' + index + 'darker) 100%);box-shadow: 0 12px 0px 0px var(--player' + index + 'darkest)'">
@@ -85,12 +85,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.waiting-view {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-</style>

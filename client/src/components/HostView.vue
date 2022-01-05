@@ -4,6 +4,7 @@
       Steph<span class="strikethrough">Mar</span>io Party
     </div>
     <waiting-view v-if="!gameStarted"></waiting-view>
+    <host-game-view v-else></host-game-view>
   </div>
 </template>
 
@@ -13,7 +14,8 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'HostView',
   components: {
-    WaitingView: () => import('./WaitingView.vue')
+    WaitingView: () => import('./WaitingView.vue'),
+    HostGameView: () => import('./HostGameView.vue')
   },
   computed: {
     ...mapGetters({
