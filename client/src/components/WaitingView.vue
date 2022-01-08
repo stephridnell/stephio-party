@@ -7,11 +7,11 @@
         :index="index"
         :key="index">
 
-        <div class="text-bold text-caps" v-if="!connectedUsers.includes(currentTeams[index].userId)">
+        <div class="text-bold text-caps" v-if="!connectedUsers.includes(currentTeams[index] && currentTeams[index].userId)">
           Offline
         </div>
 
-        <button @click="kickPlayer(currentTeams[index].userId)" class="danger button-small d-flex ai-center jc-sb white text-12 text-bold mt-12">
+        <button @click="kickPlayer(currentTeams[index] && currentTeams[index].userId)" class="danger button-small d-flex ai-center jc-sb white text-12 text-bold mt-12">
           <v-icon class="mr-6" name="ban" />
           Kick
         </button>
