@@ -7,9 +7,7 @@
           :team="team"
           :index="index">
         </team-card>
-        <rolling
-          :value="team.initialRoll">
-        </rolling>
+        <rolling :value="team.initialRoll"></rolling>
       </div>
 
       <div class="event-overlay text-bold white text-4rem" v-if="showGoesFirst">
@@ -59,7 +57,7 @@ export default {
         this.showGoesFirst = true
         setTimeout(() => {
           this.showGoesFirst = false
-        }, 3000)
+        }, 4000)
       }
     }
   }
