@@ -7,7 +7,7 @@
           :team="team"
           :index="index">
         </team-card>
-        <rolling :value="team.initialRoll"></rolling>
+        <rolling v-if="!allPlayersRolled" :value="team.initialRoll"></rolling>
       </div>
 
       <div class="event-overlay text-bold white text-4rem" v-if="showGoesFirst">
