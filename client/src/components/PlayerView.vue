@@ -18,8 +18,8 @@
         Waiting for host to start game
       </div>
       <div v-else>
-        <div v-if="!currentTeam.initialRoll">
-          <dice @roll="initialRoll"></dice>
+        <div v-if="!allPlayersRolled">
+          <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
       </div>
     </div>
@@ -41,7 +41,8 @@ export default {
       currentTeam: 'currentTeam',
       playerNumber: 'playerNumber',
       kicked: 'kicked',
-      gameStarted: 'gameStarted'
+      gameStarted: 'gameStarted',
+      allPlayersRolled: 'allPlayersRolled'
     }),
 
     minimised () {

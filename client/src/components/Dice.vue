@@ -64,6 +64,21 @@
 
 <script>
 export default {
+  name: 'Dice',
+  props: {
+    value: {
+      type: Number
+    }
+  },
+  mounted () {
+    if (this.value) {
+      let rotate = this.values[this.value - 1]
+      if (rotate) {
+        this.$refs.dice.style.transform = rotate
+        this.rolled = true
+      }
+    }
+  },
   data () {
     return {
       values: [
