@@ -126,7 +126,7 @@ async function hostStartGame (data) {
 
     // if the user is not the host and user is not in the game AND there are fewer than max allowed teams
     if (!userIsHost) {
-      if (game.teams >= MAX_PLAYERS) {
+      if (game.teams.length >= MAX_PLAYERS) {
         return io.to(this.id).emit('error', { message: 'Game is full.' } )
       } else if (!game.teams?.some(team => team.userId === userId)) {
         // add new team for user
