@@ -99,7 +99,9 @@ export default {
       this.$refs.dice.style.transform = rotate + 'scale3d(0.7,0.7,0.7)'
       let value = (this.values.indexOf(rotate) + 1) % 6
       if (value === 0) value = 6
-      this.$emit('roll', value)
+      setTimeout(() => {
+        this.$emit('roll', value)
+      }, 3000)
       this.rolled = true
     }
   }
