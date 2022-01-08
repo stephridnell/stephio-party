@@ -19,6 +19,7 @@ exports.initGame = function (sio, socket) {
   gameSocket.on('hostCreateNewGame', hostCreateNewGame)
   gameSocket.on('hostKickPlayer', hostKickPlayer)
   gameSocket.on('hostStartGame', hostStartGame)
+  gameSocket.on('hostSetTurnOrder', hostSetTurnOrder)
 
   // Player Events
   gameSocket.on('playerJoinGame', playerJoinGame)
@@ -87,6 +88,18 @@ async function hostStartGame (data) {
     game.currentTurn = 1
     await game.save()
     io.sockets.in(game.roomCode).emit('gameStarted', { game })
+  } else {
+    this.emit('error', { message: 'This game does not exist.' } )
+  }
+}
+
+async function hostSetTurnOrder (data) {
+  const game = await Game.findOne({ roomCode: data.gameId }).exec()
+
+  if (game) {
+    game.currentTurnPlayer = data.firstPlayer
+    await game.save()
+    io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
   } else {
     this.emit('error', { message: 'This game does not exist.' } )
   }

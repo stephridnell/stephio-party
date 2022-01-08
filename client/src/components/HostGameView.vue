@@ -48,12 +48,14 @@ export default {
     ...mapGetters({
       currentTeams: 'currentTeams',
       allPlayersRolled: 'allPlayersRolled',
+      gameId: 'gameId',
       turnOrder: 'turnOrder'
     })
   },
   watch: {
     allPlayersRolled () {
       if (this.allPlayersRolled) {
+        this.$socket.emit('hostSetTurnOrder', { firstPlayer: this.turnOrder?.[0]?.userId, gameId: this.gameId })
         this.showGoesFirst = true
         setTimeout(() => {
           this.showGoesFirst = false
