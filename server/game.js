@@ -109,6 +109,7 @@ async function hostStartGame (data) {
   const game = await Game.findOne({ roomCode, completed: false }).exec()
   const userId = this.handshake.query.userId
   const userIsHost = game?.hostId === userId
+  const userAlreadyInGame = game?.teams.some(el => el.userId === userId)
 
 
   // If the game exists
@@ -126,9 +127,9 @@ async function hostStartGame (data) {
 
     // if the user is not the host and user is not in the game AND there are fewer than max allowed teams
     if (!userIsHost) {
-      if (game.teams.length >= MAX_PLAYERS) {
+      if (game.teams.length >= MAX_PLAYERS && !userAlreadyInGame) {
         return io.to(this.id).emit('error', { message: 'Game is full.' } )
-      } else if (!game.teams?.some(team => team.userId === userId)) {
+      } else if (!userAlreadyInGame) {
         // add new team for user
         game.teams.push({ userId })
         await game.save()
