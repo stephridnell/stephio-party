@@ -295,6 +295,9 @@ svg {
   .text-#{$i} {
     font-size: #{$i}px !important;
   }
+  .text-#{$i}rem {
+    font-size: #{$i}rem !important;
+  }
   .mt-#{$i} {
     margin-top: #{$i}px !important;
   }

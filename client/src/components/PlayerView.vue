@@ -19,6 +19,14 @@
       </div>
       <div v-else>
         <div v-if="!allPlayersRolled">
+          <div class="white text-bold text-2rem w-100 text-center">
+            <span v-if="!currentTeam.initialRoll">
+              Roll to determine play order
+            </span>
+            <span v-else>
+              Waiting for other players...
+            </span>
+          </div>
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
       </div>
