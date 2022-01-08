@@ -17,10 +17,10 @@
       <div class="text-center" v-if="!gameStarted">
         Waiting for host to start game
       </div>
-      <div v-else>
+      <div class="white text-bold text-2rem w-100 text-center" v-else>
         <!-- before the first turn begins, all players must roll to determine play order -->
         <div v-if="!allPlayersRolled">
-          <div class="white text-bold text-2rem w-100 text-center">
+          <div>
             <span v-if="!currentTeam.initialRoll">
               Roll to determine play order
             </span>
@@ -33,6 +33,16 @@
 
         <div v-if="playersTurn">
           Your turn
+        </div>
+
+        <div v-else>
+          <div class="d-flex ai-center jc-center">
+            {{ currentTurnPlayer.teamCaptain || '?' }}
+            <div v-if="currentTurnPlayer.players && currentTurnPlayer.players[0]">
+              &nbsp;&amp; {{ currentTurnPlayer.players[0].name }}
+            </div>
+            's turn
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +66,8 @@ export default {
       kicked: 'kicked',
       gameStarted: 'gameStarted',
       playersTurn: 'playersTurn',
-      allPlayersRolled: 'allPlayersRolled'
+      allPlayersRolled: 'allPlayersRolled',
+      currentTurnPlayer: 'currentTurnPlayer'
     }),
 
     minimised () {
