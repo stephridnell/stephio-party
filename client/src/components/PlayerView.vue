@@ -18,6 +18,7 @@
         Waiting for host to start game
       </div>
       <div v-else>
+        <!-- before the first turn begins, all players must roll to determine play order -->
         <div v-if="!allPlayersRolled">
           <div class="white text-bold text-2rem w-100 text-center">
             <span v-if="!currentTeam.initialRoll">
@@ -29,6 +30,7 @@
           </div>
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
+
       </div>
     </div>
   </div>
