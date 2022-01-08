@@ -31,6 +31,9 @@
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
 
+        <div v-if="playersTurn">
+          Your turn
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +55,7 @@ export default {
       playerNumber: 'playerNumber',
       kicked: 'kicked',
       gameStarted: 'gameStarted',
+      playersTurn: 'playersTurn',
       allPlayersRolled: 'allPlayersRolled'
     }),
 

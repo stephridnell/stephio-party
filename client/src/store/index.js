@@ -75,6 +75,8 @@ export default new Vuex.Store({
     kicked: state => state.kicked,
     gameStarted: state => !!state.game?.currentTurn,
     allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
+    currentTurnPlayer: state => state.game?.currentTurnPlayer,
+    playersTurn: (_state, getters) => getters.currentTurnPlayer === getters.currentUserId,
     turnOrder: (_state, getters) => [...getters.currentTeams].sort((a, b) => {
       if (!b.initialRoll) return -1
       return b.initialRoll - a.initialRoll
