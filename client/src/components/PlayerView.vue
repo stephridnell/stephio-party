@@ -17,7 +17,7 @@
       <div class="text-center" v-if="!gameStarted">
         Waiting for host to start game
       </div>
-      <div class="white text-bold text-2rem w-100 text-center" v-else>
+      <div class="white text-bold text-2rem w-100 text-center text-caps" v-else>
         <!-- before the first turn begins, all players must roll to determine play order -->
         <div v-if="!allPlayersRolled">
           <div>
