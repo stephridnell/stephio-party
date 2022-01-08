@@ -6,7 +6,9 @@
           :team="team"
           :index="index">
         </team-card>
-        <rolling :team="team"></rolling>
+        <rolling
+          :value="team.initialRoll">
+        </rolling>
       </div>
     </div>
   </div>
@@ -23,8 +25,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentTeams: 'currentTeams'
+      currentTeams: 'currentTeams',
+      allPlayersRolled: 'allPlayersRolled',
+      turnOrder: 'turnOrder'
     })
+  },
+  watch: {
+    allPlayersRolled () {
+      
+    }
   }
 }
 </script>

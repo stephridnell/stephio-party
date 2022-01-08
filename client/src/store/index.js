@@ -73,6 +73,10 @@ export default new Vuex.Store({
     socketId: state => state.socketId,
     playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) ?? 'host',
     kicked: state => state.kicked,
-    gameStarted: state => !!state.game?.currentTurn
+    gameStarted: state => !!state.game?.currentTurn,
+    allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
+    turnOrder: (_state, getters) => [...getters.currentTeams].sort((a, b) => {
+      return b.initialRoll - a.initialRoll
+    })
   }
 })

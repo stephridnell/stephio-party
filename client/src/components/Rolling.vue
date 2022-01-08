@@ -8,9 +8,9 @@
 export default {
   name: 'Rolling',
   props: {
-    team: {
-      type: Object,
-      default: () => {}
+    value: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -25,11 +25,11 @@ export default {
   },
   mounted () {
     const updateCount = () => {
-      if (!this.team.initialRoll) {
+      if (!this.value) {
         this.number = this.randomIntFromInterval(1, 6)
         setTimeout(updateCount, 50)
       } else {
-        this.number = this.team.initialRoll
+        this.number = this.value
       }
     }
     updateCount()
