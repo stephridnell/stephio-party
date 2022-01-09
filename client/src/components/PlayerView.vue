@@ -70,7 +70,7 @@ export default {
     }),
 
     minimised () {
-      if (this.gameStarted && !this.currentTeam.initialRoll) {
+      if (this.gameStarted && (!this.currentTeam.initialRoll || this.playersTurn)) {
         return true
       }
       return false

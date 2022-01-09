@@ -82,18 +82,18 @@ export default {
   data () {
     return {
       values: [
-        'rotateX(360deg) rotateY(360deg) translate3d(32px, 0px, 0px)', //1
-        'rotateX(-270deg) rotateY(190deg) translate3d(-50px, 0px, 0px)', //2
-        'rotateX(-90deg) rotateY(20deg) translate3d(0px, 0px, 0px)', //3
-        'rotateX(-180deg) rotateY(90deg) translate3d(0px, 0px, 32px)', //4
-        'rotateX(0deg) rotateY(450deg) translate3d(0px, 0px, 0px)', //5
-        'rotateX(-180deg) rotateY(0deg) translate3d(32px, 0px, 0px)', //6
-        'rotateX(360deg) rotateY(-360deg) translate3d(0px,0px,0px)', //1
-        'rotateX(450deg) rotateY(436deg) translate3d(0px,0px,0px)', //2
-        'rotateX(-450deg) rotateY(-150deg) translate3d(0px,0px,0px)', //3
-        'rotateX(360deg) rotateY(-450deg) translate3d(0px,0px,0px)', //4
-        'rotateX(540deg) rotateY(630deg) translate3d(0px,0px,0px)', //5
-        'rotateX(-540deg) rotateY(720deg) translate3d(0px,0px,0px)' //6
+        'rotateX(360deg) rotateY(360deg) translate3d(0px,0px,0px)',   // 1
+        'rotateX(-270deg) rotateY(190deg) translate3d(0px,0px,0px)',  // 2
+        'rotateX(-90deg) rotateY(20deg) translate3d(0px,0px,0px)',    // 3
+        'rotateX(-180deg) rotateY(90deg) translate3d(0px,0px,0px)',   // 4
+        'rotateX(0deg) rotateY(450deg) translate3d(0px,0px,0px)',     // 5
+        'rotateX(-180deg) rotateY(0deg) translate3d(0px,0px,0px)',    // 6
+        'rotateX(360deg) rotateY(-360deg) translate3d(0px,0px,0px)',  // 1
+        'rotateX(450deg) rotateY(436deg) translate3d(0px,0px,0px)',   // 2
+        'rotateX(-450deg) rotateY(-150deg) translate3d(0px,0px,0px)', // 3
+        'rotateX(360deg) rotateY(-450deg) translate3d(0px,0px,0px)',  // 4
+        'rotateX(540deg) rotateY(630deg) translate3d(0px,0px,0px)',   // 5
+        'rotateX(-540deg) rotateY(720deg) translate3d(0px,0px,0px)'   // 6
       ],
       currentValue: '',
       rolled: false
@@ -145,6 +145,9 @@ export default {
   height: 200px;
   position: relative;
   transform-style: preserve-3d;
+}
+.dice-wrapper.small {
+  min-height: 200px;
 }
 .dice .side {
   position: absolute;
