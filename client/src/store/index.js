@@ -13,8 +13,8 @@ export default new Vuex.Store({
     gameId: '',
     isConnected: false,
     isHost: false,
-    socketId: '',
-    kicked: false
+    kicked: false,
+    socketId: ''
   },
 
   mutations: {
@@ -60,27 +60,30 @@ export default new Vuex.Store({
   },
 
   getters: {
+    allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
     connectedUsers: state => state.connectedUsers,
     currentTeam: (_state, getters) => getters.currentTeams?.find(el => el.userId === getters.currentUserId) || {},
     currentTeams: state => state.game?.teams || [],
+    currentTurnDetails: (_state, getters) => getters.turnsArray?.[getters.currentTurnNumber - 1] || null,
+    currentTurnNumber: state => state.game?.currentTurn,
+    currentTurnPlayer: (_state, getters) => getters.currentTeams.find(el => el.userId === getters.currentTurnPlayerId),
+    currentTurnPlayerId: state => state.game?.currentTurnPlayer,
     currentUser: state => state.currentUser,
     currentUserId: state => state.currentUser?.id || '',
     errorMessage: state => state.errorMessage,
     gameId: state => state.gameId,
+    gameStarted: state => !!state.game?.currentTurn,
     isConnected: state => state.isConnected,
     isHost: (state, getters) => state.game.hostId === getters.currentUserId,
     isHostConnected: (state, getters) => getters.connectedUsers.includes(state.game.hostId),
-    socketId: state => state.socketId,
-    playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) ?? 'host',
     kicked: state => state.kicked,
-    gameStarted: state => !!state.game?.currentTurn,
-    allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
-    currentTurnPlayerId: state => state.game?.currentTurnPlayer,
-    currentTurnPlayer: (_state, getters) => getters.currentTeams.find(el => el.userId === getters.currentTurnPlayerId),
+    playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) ?? 'host',
     playersTurn: (_state, getters) => getters.currentTurnPlayerId === getters.currentUserId,
+    socketId: state => state.socketId,
     turnOrder: (_state, getters) => [...getters.currentTeams].sort((a, b) => {
       if (!b.initialRoll) return -1
       return b.initialRoll - a.initialRoll
-    })
+    }),
+    turnsArray: (_state, getters) => getters.currentTeam?.turns || []
   }
 })

@@ -31,9 +31,7 @@
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
 
-        <div v-if="playersTurn">
-          Your turn
-        </div>
+        <turn v-if="playersTurn"></turn>
 
         <div v-else>
           <div class="d-flex ai-center jc-center">
@@ -57,7 +55,8 @@ export default {
   components: {
     NewTeamInfo: () => import('./NewTeamInfo'),
     TeamCard: () => import('./TeamCard.vue'),
-    Dice: () => import('./Dice.vue')
+    Dice: () => import('./Dice.vue'),
+    Turn: () => import('./Turn.vue')
   },
   computed: {
     ...mapGetters({
