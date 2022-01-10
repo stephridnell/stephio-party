@@ -67,6 +67,19 @@ export default new Vuex.Store({
     }
   },
 
+  actions: {
+    NEXT_TURN ({ getters }, socket) {
+      let index = getters.turnOrder.findIndex(el => el.userId === getters.currentTurnPlayerId)
+      console.log(index)
+      if (index === getters.turnOrder.length - 1) {
+        // need to increment turn number here and do the minigame
+      } else {
+        let nextPlayer = getters.turnOrder[index + 1]
+        socket.emit('playerNextTurn', { teamId: nextPlayer._id })
+      }
+    }
+  },
+
   getters: {
     allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
     connectedUsers: state => state.connectedUsers,

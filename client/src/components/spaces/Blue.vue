@@ -64,6 +64,9 @@ export default {
           }, this.animationTime)
         }
       }, this.animationTime)
+      setTimeout(() => {
+        this.$store.dispatch('NEXT_TURN', this.$socket)
+      }, 1000)
     }, 1000)
   }
 }
