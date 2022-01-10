@@ -1,12 +1,15 @@
 <template>
   <div class="turn" @click="tap">
-    <dice v-if="!tapped" @roll="storeRoll" :value="currentTurnDetails.roll" :class="{ small: currentTurnDetails.roll }"></dice>
-    <div v-if="currentTurnDetails.roll && !tapped">
-      Move {{ currentTurnDetails.roll }} {{ currentTurnDetails.roll === 1 ? 'space' : 'spaces' }} then tap to continue
-    </div>
-    <div v-else-if="tapped">
-      <spaces @select="storeSpace"></spaces>
-    </div>
+    <template v-if="!currentTurnDetails.space">
+      <dice v-if="!tapped" @roll="storeRoll" :value="currentTurnDetails.roll" :class="{ small: currentTurnDetails.roll }"></dice>
+      <div v-if="currentTurnDetails.roll && !tapped">
+        Move {{ currentTurnDetails.roll }} {{ currentTurnDetails.roll === 1 ? 'space' : 'spaces' }} then tap to continue
+      </div>
+      <div v-else-if="tapped">
+        <spaces @select="storeSpace"></spaces>
+      </div>
+    </template>
+    <component v-else :is="currentTurnDetails.space"></component>
   </div>
 </template>
 
@@ -29,7 +32,8 @@ export default {
   },
   components: {
     Dice: () => import('./Dice.vue'),
-    Spaces: () => import('./Spaces.vue')
+    Spaces: () => import('./Spaces.vue'),
+    Blue: () => import('./spaces/Blue.vue')
   },
   mounted () {
     if (!this.currentTurnDetails) {

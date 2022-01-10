@@ -16,10 +16,10 @@
 
         <div v-if="gameStarted" :class="{ minimised }">
           <div class="d-flex ai-center jc-sb text-bold white m-12" :class="minimised ? 'text-20' : 'text-40'">
-            <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')"> x {{ team.coins }}
+            <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')" id="coin"> x {{ team.coins }}
           </div>
           <div class="d-flex ai-center jc-sb text-bold white m-12" :class="minimised ? 'text-20' : 'text-40'">
-            <img class="team-asset mr-12" :src="require('@/assets/img/star.png')"> x {{ team.stars }}
+            <img class="team-asset mr-12" :src="require('@/assets/img/star.png')" id="star"> x {{ team.stars }}
           </div>
         </div>
 
