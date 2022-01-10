@@ -1,8 +1,12 @@
 <template>
-  <div class="turn">
-    <dice @roll="storeRoll" :value="currentTurnDetails.roll" :class="{ small: currentTurnDetails.roll }"></dice>
-    <div v-if="currentTurnDetails.roll">
-      Move {{ currentTurnDetails.roll }} {{ currentTurnDetails.roll === 1 ? 'space' : 'spaces' }}
+  <div class="turn" @click="tap">
+    <dice v-if="!tapped" @roll="storeRoll" :value="currentTurnDetails.roll" :class="{ small: currentTurnDetails.roll }"></dice>
+    <div v-if="currentTurnDetails.roll && !tapped">
+      Move {{ currentTurnDetails.roll }} {{ currentTurnDetails.roll === 1 ? 'space' : 'spaces' }} then tap to continue
+    </div>
+    <div v-else-if="tapped">
+      Select the space you landed on 
+      <spaces></spaces>
     </div>
   </div>
 </template>
@@ -12,6 +16,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Turn',
+  data () {
+    return {
+      tapped: false
+    }
+  },
   computed: {
     ...mapGetters({
       currentTurnDetails: 'currentTurnDetails',
@@ -20,7 +29,8 @@ export default {
     })
   },
   components: {
-    Dice: () => import('./Dice.vue')
+    Dice: () => import('./Dice.vue'),
+    Spaces: () => import('./Spaces.vue')
   },
   mounted () {
     if (!this.currentTurnDetails) {
@@ -28,6 +38,9 @@ export default {
     }
   },
   methods: {
+    tap () {
+      this.tapped = this.currentTurnDetails.roll
+    },
     storeRoll (value) {
       this.$socket.emit('playerTurnRoll', {
         teamId: this.currentTeam._id,
