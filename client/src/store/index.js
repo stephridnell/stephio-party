@@ -71,6 +71,7 @@ export default new Vuex.Store({
     allPlayersRolled: (_state, getters) => getters.currentTeams.every(el => !!el.initialRoll),
     connectedUsers: state => state.connectedUsers,
     currentTeam: (_state, getters) => getters.currentTeams?.find(el => el.userId === getters.currentUserId) || {},
+    currentTeamCoins: (_state, getters) => getters.currentTeam?.coins || 0,
     currentTeams: state => state.game?.teams || [],
     currentTurnDetails: (_state, getters) => getters.turnsArray?.[getters.currentTurnNumber - 1] || null,
     currentTurnNumber: state => state.game?.currentTurn,

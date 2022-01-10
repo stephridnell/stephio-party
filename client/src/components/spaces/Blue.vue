@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Blue',
   data () {
@@ -23,6 +25,12 @@ export default {
       currentCoin: 0,
       coinsGiven: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentTeamCoins: 'currentTeamCoins',
+      currentTeam: 'currentTeam'
+    })
   },
   mounted () {
     setTimeout(() => {
@@ -35,7 +43,7 @@ export default {
         const top2 = coinPosition.top
         const left2 = coinPosition.left
 
-        coin.style.transform = `translate3d(${Math.floor(left - left2 - 10)}px, ${Math.floor(top - top2 - 10)}px, 0)`
+        coin.style.transform = `translate3d(${Math.floor(left - left2 - 20)}px, ${Math.floor(top - top2 - 10)}px, 0)`
         setTimeout(() => {
           this.$store.commit('UPDATE_COINS', { coins: 1 })
         }, 250)
@@ -44,6 +52,10 @@ export default {
           clearInterval(x)
           setTimeout(() => {
             this.coinsGiven = true
+            this.$socket.emit('playerSetCoins', {
+              teamId: this.currentTeam._id,
+              coins: this.currentTeamCoins
+            })
             const elements = document.getElementsByClassName('coin')
             while (elements.length > 0) {
               elements[0].parentNode.removeChild(elements[0])
