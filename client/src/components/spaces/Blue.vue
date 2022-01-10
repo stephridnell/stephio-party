@@ -23,7 +23,8 @@ export default {
     return {
       coinCount: 3,
       currentCoin: 0,
-      coinsGiven: false
+      coinsGiven: false,
+      animationTime: 250
     }
   },
   computed: {
@@ -46,7 +47,7 @@ export default {
         coin.style.transform = `translate3d(${Math.floor(left - left2 - 20)}px, ${Math.floor(top - top2 - 10)}px, 0)`
         setTimeout(() => {
           this.$store.commit('UPDATE_COINS', { coins: 1 })
-        }, 250)
+        }, this.animationTime)
         this.currentCoin++
         if (this.currentCoin === this.coinCount) {
           clearInterval(x)
@@ -60,9 +61,9 @@ export default {
             while (elements.length > 0) {
               elements[0].parentNode.removeChild(elements[0])
             }
-          }, 250)
+          }, this.animationTime)
         }
-      }, 250)
+      }, this.animationTime)
     }, 1000)
   }
 }
