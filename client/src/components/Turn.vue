@@ -5,8 +5,7 @@
       Move {{ currentTurnDetails.roll }} {{ currentTurnDetails.roll === 1 ? 'space' : 'spaces' }} then tap to continue
     </div>
     <div v-else-if="tapped">
-      Select the space you landed on 
-      <spaces></spaces>
+      <spaces @select="storeSpace"></spaces>
     </div>
   </div>
 </template>
@@ -46,6 +45,13 @@ export default {
         teamId: this.currentTeam._id,
         turnId: this.currentTurnDetails._id,
         roll: value
+      })
+    },
+    storeSpace (value) {
+      this.$socket.emit('playerStoreSpace', {
+        teamId: this.currentTeam._id,
+        turnId: this.currentTurnDetails._id,
+        space: value
       })
     }
   }

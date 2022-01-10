@@ -27,6 +27,7 @@ exports.initGame = function (sio, socket) {
   gameSocket.on('playerInitialRoll', playerInitialRoll)
   gameSocket.on('playerNewTurn', playerNewTurn)
   gameSocket.on('playerTurnRoll', playerTurnRoll)
+  gameSocket.on('playerStoreSpace', playerStoreSpace)
 }
 
 /* *******************************
@@ -215,6 +216,19 @@ async function playerTurnRoll (data) {
 
   if (turn) {
     turn.set({ ...turn, roll: data.roll })
+    game.save()
+    io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
+  } else {
+    io.to(this.id).emit('error', { message: 'Turn not found.' } )
+  }
+}
+
+async function playerStoreSpace (data) {
+  const game = await Game.findOne({'teams._id': data.teamId, completed: false }).exec()
+  const turn = game?.teams.id(data.teamId).turns?.id(data.turnId)
+
+  if (turn) {
+    turn.set({ ...turn, space: data.space })
     game.save()
     io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
   } else {
