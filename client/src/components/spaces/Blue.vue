@@ -34,6 +34,12 @@ export default {
       this.currentCoin++
       if (this.currentCoin === this.coinCount) {
         clearInterval(x)
+        setTimeout(() => {
+          const elements = document.getElementsByClassName('coin')
+          while (elements.length > 0) {
+            elements[0].parentNode.removeChild(elements[0])
+          }
+        }, 250)
       }
     }, 250)
   }
