@@ -74,6 +74,7 @@ export default new Vuex.Store({
       if (index === getters.turnOrder.length - 1) {
         // need to increment turn number here and do the minigame
       } else {
+        // next player in same round
         let nextPlayer = getters.turnOrder[index + 1]
         socket.emit('playerNextTurn', { teamId: nextPlayer._id })
       }
