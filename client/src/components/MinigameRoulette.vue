@@ -1,28 +1,102 @@
 <template>
   <div class="minigame-roulette">
-    <div v-for="minigame in minigames" :key="minigame._id">
-      <img :src="s3BucketUrl + minigame.imageName">
-      <div>{{ minigame.name }}</div>
+    <div class="event-overlay white p-60" v-if="randomMinigame">
+      <img :src="s3BucketUrl + randomMinigame.imageName" :alt="randomMinigame.name">
+      <h2 class=" mt-24 text-bold text-5rem">{{ randomMinigame.name }}</h2>
+      <div class="text-3rem text-center" style="max-width:1200px">{{ randomMinigame.rules }}</div>
+    </div>
+    <div class="wrapper" ref="wrapper">
+      <div id="minigame-roulette" class="window">
+        <ul class="list">
+          <li v-for="minigame in minigames" :key="minigame._id">
+            <img :src="s3BucketUrl + minigame.imageName" :alt="minigame.name">
+          </li>
+          <li v-for="minigame in minigames" :key="minigame._id + 2">
+            <img :src="s3BucketUrl + minigame.imageName" :alt="minigame.name">
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'MinigameRoulette',
+  props: {
+    minigames: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
-    ...mapGetters({
-      minigames: 'minigames'
-    }),
     s3BucketUrl () {
       return process.env.VUE_APP_S3_BUCKET
+    },
+    max () {
+      return this.minigames.length - 1
+    }
+  },
+  data () {
+    return {
+      randomMinigame: null,
+      min: 0
+    }
+  },
+  mounted () {
+    this.pickMinigame()
+  },
+  methods: {
+    pickMinigame () {
+      let minigameIndex = Math.floor(Math.random() * (this.max - this.min + 1) + this.min)
+
+      this.$refs.wrapper.style.right = '0px'
+      this.$refs.wrapper.animate({
+        right: '29570px'
+      }, 4000)
+      setTimeout(() => {
+        this.randomMinigame = this.minigames[minigameIndex]
+        this.$refs.wrapper.style.right = '29570px'
+      }, 4000)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+img {
+  border-radius: 39px;
+}
+.minigame-roulette {
+  width: 100%;
+  .event-overlay {
+    z-index: 9;
+  }
+}
+li {
+    list-style: none;
+    display: inline-block;
+    margin: 10px;
+}
+
+.window {
+    overflow: hidden;
+    position: relative;
+    width: 25000000px;
+    right: 0px;
+}
+
+.wrapper {
+    position: relative;
+    width: 1420px;
+    max-width: 100%;
+    margin-left: -80px;
+}
+
+.list {
+    position: relative;
+    display: inline-block;
+}
+
 
 </style>

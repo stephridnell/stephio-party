@@ -32,11 +32,8 @@
       Minigame
     </button>
 
-    <div class="event-overlay text-bold white" v-if="minigameRoulette">
-      <minigame-roulette></minigame-roulette>
-      <button class="text-bold text-36" @click="minigameRoulette = false">
-        Cancel
-      </button>
+    <div class="event-overlay" v-if="minigameRoulette">
+      <minigame-roulette :minigames="minigames" @done="minigameRoulette = false"></minigame-roulette>
     </div>
   </div>
 </template>
@@ -62,7 +59,8 @@ export default {
       currentTeams: 'currentTeams',
       allPlayersRolled: 'allPlayersRolled',
       gameId: 'gameId',
-      turnOrder: 'turnOrder'
+      turnOrder: 'turnOrder',
+      minigames: 'minigames'
     })
   },
   watch: {
