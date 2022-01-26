@@ -28,9 +28,15 @@
       </div>
     </div>
 
-    <button class="text-bold text-36" @click="triggerMinigame">
+    <button class="text-bold text-36" @click="minigameRoulette = true">
       Minigame
     </button>
+
+    <div class="event-overlay text-bold white text-4rem" v-if="minigameRoulette">
+      <button class="text-bold text-36" @click="minigameRoulette = false">
+        Cancel
+      </button>
+    </div>
   </div>
 </template>
 
@@ -41,7 +47,8 @@ export default {
   name: 'HostGameView',
   data () {
     return {
-      showGoesFirst: false
+      showGoesFirst: false,
+      minigameRoulette: false
     }
   },
   components: {
@@ -55,9 +62,6 @@ export default {
       gameId: 'gameId',
       turnOrder: 'turnOrder'
     })
-  },
-  methods: {
-    triggerMinigame () {}
   },
   watch: {
     allPlayersRolled () {
