@@ -4,6 +4,7 @@ const http = require('http').createServer(app)
 const game = require('./game')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const io = require('socket.io')(http, {
   cors: { origins: ['http://localhost:8080'] }
@@ -13,6 +14,11 @@ let users = {}
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+let allowlist = ['http://localhost:8080', 'http://192.168.1.24:8080']
+app.use(cors({
+  origin: allowlist
+}))
 
 connectDatabase()
 

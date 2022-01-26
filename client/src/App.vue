@@ -13,6 +13,7 @@ export default {
     this.checkLocalStorageForPlayerId()
     this.$socket.setupSocketConnection()
     this.checkRouteForGameId()
+    this.loadMinigames()
   },
   computed: {
     ...mapGetters({
@@ -40,6 +41,11 @@ export default {
         this.$store.commit('SET_PLAYER_ID', newPlayerId)
         window.localStorage.setItem('sppid', newPlayerId)
       }
+    },
+    async loadMinigames () {
+      let minigames = await fetch(`${process.env.VUE_APP_SERVER_ENDPOINT}/minigames`)
+      let json = await minigames.json()
+      console.log(json)
     }
   },
   beforeUnmount () {

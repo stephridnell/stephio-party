@@ -10,7 +10,7 @@ class SocketioService {
 
   setupSocketConnection () {
     this.socket = io(
-      process.env.VUE_APP_SOCKET_ENDPOINT,
+      process.env.VUE_APP_SERVER_ENDPOINT,
       { query: 'userId=' + this.store.getters.currentUserId }
     )
     this.bindEvents()
