@@ -48,8 +48,9 @@ body {
 
 .container {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
+  gap: 70px;
+  grid-template-columns: repeat(2, minmax(250px, 800px));
 }
 
 .box {
@@ -104,6 +105,22 @@ button, .button {
     padding: 0.2rem 0.5rem;
     border-radius: 6px;
   }
+  &.round {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    line-height: 1;
+    &.minus {
+      box-shadow: 0 7px 0px 0px var(--player0darkest);
+      background: var(--player0);
+      padding-bottom: 8px;
+    }
+    &.add {
+      box-shadow: 0 7px 0px 0px var(--player2darkest);
+      background: var(--player2);
+    }
+  }
 }
 
 select {
@@ -119,12 +136,22 @@ select {
 button:active, .button:active {
   transform: translateY(4px);
   box-shadow: 0 3px 0px 0px #2E9947;
+  &.minus {
+    box-shadow: 0 3px 0px 0px var(--player0darkest);
+  }
+  &.add {
+    box-shadow: 0 3px 0px 0px var(--player2darkest);
+  }
 }
 
 .player0 {
   button, .button {
     box-shadow: 0 7px 0px 0px var(--player0darkest);
     background: var(--player0);
+  }
+  button:active, .button:active {
+    transform: translateY(4px);
+    box-shadow: 0 3px 0px 0px #2E9947;
   }
 }
 .player1 {
@@ -133,12 +160,18 @@ button:active, .button:active {
     box-shadow: 0 7px 0px 0px var(--player1darkest);
     background: var(--player1);
   }
+  button:active, .button:active {
+    box-shadow: 0 3px 0px 0px var(--player1darkest);
+  }
 }
 .player2 {
   button, .button {
     color: var(--text-dark);
     box-shadow: 0 7px 0px 0px var(--player2darkest);
     background: var(--player2);
+  }
+  button:active, .button:active {
+    box-shadow: 0 3px 0px 0px var(--player2darkest);
   }
 }
 .player3 {
@@ -147,12 +180,18 @@ button:active, .button:active {
     box-shadow: 0 7px 0px 0px var(--player3darkest);
     background: var(--player3);
   }
+  button:active, .button:active {
+    box-shadow: 0 3px 0px 0px var(--player3darkest);
+  }
 }
 
 button, .button {
   &.danger {
     box-shadow: 0 7px 0px 0px var(--reddarker);
     background: var(--red);
+  }
+  button:active, .button:active {
+    box-shadow: 0 3px 0px 0px var(--reddarker);
   }
 }
 
