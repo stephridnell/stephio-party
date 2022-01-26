@@ -18,15 +18,15 @@
           <div class="d-flex ai-center jc-sb text-bold white m-12" :class="minimised ? 'text-20' : 'text-40'">
             <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')" id="coin"> x {{ team.coins }}
             <div v-if="isHost" class="ml-20">
-              <button class="round text-36 text-bold add mr-10">+</button>
-              <button class="round text-36 text-bold minus">-</button>
+              <button @click="addMinusCoin(1)" class="round text-36 text-bold add mr-10">+</button>
+              <button @click="addMinusCoin(-1)" class="round text-36 text-bold minus">-</button>
             </div>
           </div>
           <div class="d-flex ai-center jc-sb text-bold white m-12" :class="minimised ? 'text-20' : 'text-40'">
             <img class="team-asset mr-12" :src="require('@/assets/img/star.png')" id="star"> x {{ team.stars }}
             <div v-if="isHost">
-              <button class="round text-36 text-bold add mr-10">+</button>
-              <button class="round text-36 text-bold minus">-</button>
+              <button @click="addMinusStar(1)" class="round text-36 text-bold add mr-10">+</button>
+              <button @click="addMinusStar(-1)" class="round text-36 text-bold minus">-</button>
             </div>
           </div>
         </div>
@@ -69,6 +69,16 @@ export default {
     teamsTurn () {
       return this.currentTurnPlayerId === this.team?.userId
     }
+  },
+  methods: {
+    addMinusCoin (coins = 1) {
+      this.$store.commit('UPDATE_COINS', { coins, userId: this.team.userId })
+      this.$socket.emit('playerSetCoins', {
+        teamId: this.team._id,
+        coins: this.team.coins
+      })
+    },
+    addMinusStar (stars) {}
   }
 }
 </script>
