@@ -43,9 +43,9 @@ export default {
       }
     },
     async loadMinigames () {
-      let minigames = await fetch(`${process.env.VUE_APP_SERVER_ENDPOINT}/minigames`)
-      let json = await minigames.json()
-      console.log(json)
+      let response = await fetch(`${process.env.VUE_APP_SERVER_ENDPOINT}/minigames`)
+      let minigames = await response.json()
+      this.$store.commit('SET_MINIGAMES', minigames)
     }
   },
   beforeUnmount () {

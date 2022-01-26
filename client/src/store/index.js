@@ -22,6 +22,10 @@ export default new Vuex.Store({
       state.isConnected = true
     },
 
+    SET_MINIGAMES (state, minigames) {
+      state.minigames = minigames
+    },
+
     UPDATE_COINS (state, { coins, userId }) {
       userId = userId || state.currentUser?.id
       let currentTeam = state.game?.teams?.find(el => el.userId === userId)
