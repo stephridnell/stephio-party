@@ -57,7 +57,7 @@ export default {
       currentTurnPlayerId: 'currentTurnPlayerId'
     }),
     teamsTurn () {
-      return this.currentTurnPlayerId === this.team.userId
+      return this.currentTurnPlayerId === this.team?.userId
     }
   }
 }
