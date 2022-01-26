@@ -112,6 +112,7 @@ export default new Vuex.Store({
     isHost: (state, getters) => state.game.hostId === getters.currentUserId,
     isHostConnected: (state, getters) => getters.connectedUsers.includes(state.game.hostId),
     kicked: state => state.kicked,
+    minigames: state => state.minigames,
     playerNumber: (_state, getters) => getters.currentTeams?.findIndex(el => el.userId === getters.currentUserId) ?? 'host',
     playersTurn: (_state, getters) => getters.currentTurnPlayerId === getters.currentUserId,
     socketId: state => state.socketId,

@@ -32,7 +32,8 @@
       Minigame
     </button>
 
-    <div class="event-overlay text-bold white text-4rem" v-if="minigameRoulette">
+    <div class="event-overlay text-bold white" v-if="minigameRoulette">
+      <minigame-roulette></minigame-roulette>
       <button class="text-bold text-36" @click="minigameRoulette = false">
         Cancel
       </button>
@@ -53,7 +54,8 @@ export default {
   },
   components: {
     TeamCard: () => import('./TeamCard.vue'),
-    Rolling: () => import('./Rolling.vue')
+    Rolling: () => import('./Rolling.vue'),
+    MinigameRoulette: () => import('./MinigameRoulette.vue')
   },
   computed: {
     ...mapGetters({
