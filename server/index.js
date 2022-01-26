@@ -4,6 +4,7 @@ const http = require('http').createServer(app)
 const game = require('./game')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+
 const io = require('socket.io')(http, {
   cors: { origins: ['http://localhost:8080'] }
 })
@@ -14,6 +15,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 connectDatabase()
+
+app.use('/minigames', require('./routes/minigames'))
 
 io.on('connection', (socket) => {
   game.initGame(io, socket)

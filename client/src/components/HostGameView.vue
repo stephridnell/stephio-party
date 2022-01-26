@@ -9,24 +9,28 @@
         </team-card>
         <rolling v-if="!allPlayersRolled" :value="team.initialRoll"></rolling>
       </div>
+    </div>
 
-      <div class="event-overlay text-bold white text-4rem" v-if="showGoesFirst">
-        <div class="event-overlay-content d-flex fd-col jc-center">
-          <span class="party-moji text-center text-6rem">
-            🥇
-          </span>
-          <div class="d-flex ai-center text-center">
-            {{ turnOrder[0].teamCaptain || '?' }}
-            <div v-if="turnOrder[0].players && turnOrder[0].players[0]">
-              &nbsp;&amp; {{ turnOrder[0].players[0].name }}
-            </div>
+    <div class="event-overlay text-bold white text-4rem" v-if="showGoesFirst">
+      <div class="event-overlay-content d-flex fd-col jc-center">
+        <span class="party-moji text-center text-6rem">
+          🥇
+        </span>
+        <div class="d-flex ai-center text-center">
+          {{ turnOrder[0].teamCaptain || '?' }}
+          <div v-if="turnOrder[0].players && turnOrder[0].players[0]">
+            &nbsp;&amp; {{ turnOrder[0].players[0].name }}
           </div>
-          <div class="text-center">
-            go first
-          </div>
+        </div>
+        <div class="text-center">
+          go first
         </div>
       </div>
     </div>
+
+    <button class="text-bold text-36" @click="triggerMinigame">
+      Minigame
+    </button>
   </div>
 </template>
 
@@ -51,6 +55,9 @@ export default {
       gameId: 'gameId',
       turnOrder: 'turnOrder'
     })
+  },
+  methods: {
+    triggerMinigame () {}
   },
   watch: {
     allPlayersRolled () {

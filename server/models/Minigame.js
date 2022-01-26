@@ -9,19 +9,16 @@ const schema = new Schema({
   rules: {
     type: String
   },
-  image: {
+  imageName: {
     type: String
   },
-  ffa: {
-    type: Boolean
+  modes: {
+    type: Array
   },
-  team: {
-    type: Boolean
+  coins: {
+    type: Number
   },
-  single: {
-    type: Boolean
-  },
-  dynamicCoinPrize: {
+  setPrize: {
     type: Boolean,
     default: false
   }
@@ -29,6 +26,6 @@ const schema = new Schema({
   timestamps: true
 })
 
-const model = mongoose.model('Team', schema)
+const model = mongoose.model('Minigame', schema)
 
 module.exports = model
