@@ -72,13 +72,25 @@ export default {
   },
   methods: {
     addMinusCoin (coins = 1) {
+      if (this.team.coins === 0 && coins === -1) {
+        return false
+      }
       this.$store.commit('UPDATE_COINS', { coins, userId: this.team.userId })
       this.$socket.emit('playerSetCoins', {
         teamId: this.team._id,
         coins: this.team.coins
       })
     },
-    addMinusStar (stars) {}
+    addMinusStar (stars) {
+      if (this.team.stars === 0 && stars === -1) {
+        return false
+      }
+      this.$store.commit('UPDATE_STARS', { stars, userId: this.team.userId })
+      this.$socket.emit('playerSetStars', {
+        teamId: this.team._id,
+        stars: this.team.stars
+      })
+    }
   }
 }
 </script>

@@ -30,6 +30,14 @@ export default new Vuex.Store({
       }
     },
 
+    UPDATE_STARS (state, { stars, userId }) {
+      userId = userId || state.currentUser?.id
+      let currentTeam = state.game?.teams?.find(el => el.userId === userId)
+      if (currentTeam) {
+        currentTeam.stars += stars
+      }
+    },
+
     SET_GAME_ID (state, id) {
       state.gameId = id
     },
