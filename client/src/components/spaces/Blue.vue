@@ -34,6 +34,8 @@ export default {
     })
   },
   mounted () {
+    // this timeout is handling the cute animation effect of the coins
+    // being added to the total at the top
     setTimeout(() => {
       const coinEl = document.getElementById('coin').getBoundingClientRect()
       const top = coinEl.top
