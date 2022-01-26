@@ -89,7 +89,7 @@ export default new Vuex.Store({
     currentTeams: state => state.game?.teams || [],
     currentTurnDetails: (_state, getters) => getters.turnsArray?.[getters.currentTurnNumber - 1] || null,
     currentTurnNumber: state => state.game?.currentTurn,
-    currentTurnPlayer: (_state, getters) => getters.currentTeams.find(el => el.userId === getters.currentTurnPlayerId),
+    currentTurnPlayer: (_state, getters) => getters.currentTeams.find(el => el.userId === getters.currentTurnPlayerId) || {},
     currentTurnPlayerId: state => state.game?.currentTurnPlayer,
     currentUser: state => state.currentUser,
     currentUserId: state => state.currentUser?.id || '',

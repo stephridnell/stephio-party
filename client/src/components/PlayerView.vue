@@ -31,17 +31,19 @@
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
 
-        <turn v-if="playersTurn"></turn>
+        <template v-else>
+          <turn v-if="playersTurn"></turn>
 
-        <div v-else>
-          <div class="d-flex ai-center jc-center">
-            {{ currentTurnPlayer.teamCaptain || '?' }}
-            <div v-if="currentTurnPlayer.players && currentTurnPlayer.players[0]">
-              &nbsp;&amp; {{ currentTurnPlayer.players[0].name }}
+          <div v-else>
+            <div class="d-flex ai-center jc-center">
+              {{ currentTurnPlayer.teamCaptain || '?' }}
+              <div v-if="currentTurnPlayer.players && currentTurnPlayer.players[0]">
+                &nbsp;&amp; {{ currentTurnPlayer.players[0].name }}
+              </div>
+              's turn
             </div>
-            's turn
           </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>
