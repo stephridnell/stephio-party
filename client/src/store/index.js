@@ -82,9 +82,8 @@ export default new Vuex.Store({
   actions: {
     NEXT_TURN ({ getters }, socket) {
       let index = getters.turnOrder.findIndex(el => el.userId === getters.currentTurnPlayerId)
-      console.log(index)
       if (index === getters.turnOrder.length - 1) {
-        // need to increment turn number here and do the minigame
+        socket.emit('endRound', { gameId: getters.gameId })
       } else {
         // next player in same round
         let nextPlayer = getters.turnOrder[index + 1]

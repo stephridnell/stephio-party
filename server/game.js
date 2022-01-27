@@ -31,6 +31,7 @@ exports.initGame = function (sio, socket) {
   gameSocket.on('playerSetCoins', playerSetCoins)
   gameSocket.on('playerNextTurn', playerNextTurn)
   gameSocket.on('playerSetStars', playerSetStars)
+  gameSocket.on('endRound', endRound)
 }
 
 /* *******************************
@@ -281,4 +282,14 @@ async function playerNextTurn (data) {
   } else {
     io.to(this.id).emit('error', { message: 'Team not found.' } )
   }
+}
+
+async function endRound (data) {
+  const game = await Game.findOne({ roomCode: data.gameId }).exec()
+  game.currentTurn++
+  if (game.currentTurn === game.turns) {
+    // game is complete
+  }
+  game.currentTurnPlayer = ''
+  await game.save()
 }

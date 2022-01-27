@@ -36,11 +36,14 @@
 
           <div v-else>
             <div class="d-flex ai-center jc-center">
-              {{ currentTurnPlayer.teamCaptain || '?' }}
-              <div v-if="currentTurnPlayer.players && currentTurnPlayer.players[0]">
-                &nbsp;&amp; {{ currentTurnPlayer.players[0].name }}
-              </div>
-              's turn
+              <template v-if="currentTurnPlayer.teamCaptain">
+                {{ currentTurnPlayer.teamCaptain || '?' }}
+                <div v-if="currentTurnPlayer.players && currentTurnPlayer.players[0]">
+                  &nbsp;&amp; {{ currentTurnPlayer.players[0].name }}
+                </div>
+                's turn
+              </template>
+              <template v-else>Minigame</template>
             </div>
           </div>
         </template>
