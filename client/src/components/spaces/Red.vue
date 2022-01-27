@@ -1,16 +1,11 @@
 <template>
-  <div class="blue-space">
+  <div class="red-space">
     <div>
-      <img class="space" :src="require('@/assets/img/spaces/blue.png')">
+      <img class="space" :src="require('@/assets/img/spaces/red.png')">
     </div>
-    <div class="d-flex ai-center jc-center text-bold white m-12 text-40" v-if="coinsGiven">
-      <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')" id="bigcoin"> + {{ coinCount }}
+    <div class="d-flex ai-center jc-center text-bold white m-12 text-40">
+      <img class="team-asset mr-12" :src="require('@/assets/img/coin.png')" id="bigcoin"> - {{ currentCoin }}
     </div>
-    <img
-      v-for="coin in coinCount"
-      :key="coin"
-      class="coin team-asset mr-12"
-      :src="require('@/assets/img/coin.png')">
   </div>
 </template>
 
@@ -18,7 +13,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Blue',
+  name: 'Red',
   data () {
     return {
       coinCount: 3,
@@ -34,21 +29,31 @@ export default {
     })
   },
   mounted () {
-    // this timeout is handling the cute animation effect of the coins
-    // being added to the total at the top
     setTimeout(() => {
-      const coinEl = document.getElementById('coin').getBoundingClientRect()
-      const top = coinEl.top
-      const left = coinEl.left
-      var x = setInterval(() => {
-        const coin = document.getElementsByClassName('coin')[this.currentCoin]
-        const coinPosition = coin.getBoundingClientRect()
-        const top2 = coinPosition.top
-        const left2 = coinPosition.left
+      const coinEl = document.getElementById('coin')
+      let coins = Array(3).fill('').map(i => {
+        let newCoin = coinEl.cloneNode(true)
+        newCoin.style.position = 'absolute'
+        newCoin.style.top = '22px'
+        newCoin.classList.add('coin')
+        coinEl.parentNode.appendChild(newCoin)
+        return newCoin
+      })
 
-        coin.style.transform = `translate3d(${Math.floor(left - left2 - 20)}px, ${Math.floor(top - top2 - 10)}px, 0)`
+      const coinElPosition = coinEl.getBoundingClientRect()
+      const top2 = coinElPosition.top
+      const left2 = coinElPosition.left
+
+      const bigCoinEl = document.getElementById('bigcoin').getBoundingClientRect()
+      const top = bigCoinEl.top
+      const left = bigCoinEl.left
+
+      var x = setInterval(() => {
+        const coin = coins[this.currentCoin]
+
+        coin.style.transform = `translate3d(${Math.floor(left - left2 + 11)}px, ${Math.floor(top - top2 + 16)}px, 0)`
         setTimeout(() => {
-          this.$store.commit('UPDATE_COINS', { coins: 1 })
+          this.$store.commit('UPDATE_COINS', { coins: -1 })
         }, this.animationTime)
         this.currentCoin++
         if (this.currentCoin === this.coinCount) {
@@ -75,7 +80,7 @@ export default {
 </script>
 
 <style>
-.coin {
-  transition: transform .25s;
+#bigcoin {
+  z-index: 1;
 }
 </style>

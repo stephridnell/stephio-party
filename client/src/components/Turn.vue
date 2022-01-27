@@ -33,7 +33,8 @@ export default {
   components: {
     Dice: () => import('./Dice.vue'),
     Spaces: () => import('./Spaces.vue'),
-    Blue: () => import('./spaces/Blue.vue')
+    Blue: () => import('./spaces/Blue.vue'),
+    Red: () => import('./spaces/Red.vue')
   },
   mounted () {
     if (!this.currentTurnDetails) {
