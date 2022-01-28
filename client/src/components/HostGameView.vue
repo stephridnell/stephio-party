@@ -51,6 +51,16 @@
       <button class="text-bold text-36 mr-24 round" @click="shuffleTeamMates">
         ?
       </button>
+      <button class="text-bold text-36 mr-24 round danger" @click="bowser">
+        <img :src="require('@/assets/img/bowser.png')" height="25px" width="25px">
+      </button>
+    </div>
+
+    <div class="mt-50 text-center" v-if="bowserAction">
+      <div class="text-32 white">{{ bowserAction }}</div>
+      <button class="mt-16 text-bold text-24 button-small" @click="bowserAction = ''">
+        Done
+      </button>
     </div>
 
     <div class="event-overlay" v-if="minigameRoulette">
@@ -68,10 +78,20 @@ export default {
     return {
       minigameType: '',
       showGoesFirst: false,
-      minigameRoulette: false
+      minigameRoulette: false,
+      bowserOptions: [
+        'Bowser\'s revolution',
+        'Everybody gives 10 coins to bowser',
+        'You give 20 coins to bowser'
+      ],
+      bowserAction: ''
     }
   },
   methods: {
+    bowser () {
+      let bowserIndex = Math.floor(Math.random() * 3)
+      this.bowserAction = this.bowserOptions[bowserIndex]
+    },
     triggerMinigame (type) {
       this.minigameType = type
       this.minigameRoulette = true

@@ -190,7 +190,9 @@ button, .button {
     box-shadow: 0 7px 0px 0px var(--reddarker);
     background: var(--red);
   }
-  button:active, .button:active {
+}
+button:active, .button:active {
+  &.danger {
     box-shadow: 0 3px 0px 0px var(--reddarker);
   }
 }
