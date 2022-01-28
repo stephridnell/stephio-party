@@ -1,7 +1,7 @@
 <template>
   <div class="rolling white text-bold text-60">
     <img class="chance-avatar" :src="currentTeams[number].avatar" :style="'background:var(--player' + number + 'darkest);'" /><br>
-    <button class="mt-1 text-bold text-24 button-small" @click="stopSpin" v-if="value === null">
+    <button class="blue-button mt-1 text-bold text-24 button-small" @click="stopSpin" v-if="value === null">
       Stop
     </button>
     <span v-else>

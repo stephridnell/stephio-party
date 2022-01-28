@@ -73,7 +73,7 @@
         <chance-middle class="mr-24" @stopped="middleChanceSet"></chance-middle>
         <chance-right @stopped="rightChanceSet"></chance-right>
       </div>
-      <button class="mt-16 text-bold text-24 button-small" @click="stopChanceTime">
+      <button class="mt-16 mb-20 text-bold text-24 button-small" @click="stopChanceTime">
         Done
       </button>
     </div>
