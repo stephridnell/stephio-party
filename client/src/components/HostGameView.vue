@@ -47,6 +47,12 @@
       </button>
     </div>
 
+    <div class="mt-50 text-center">
+      <button class="text-bold text-36 mr-24 round" @click="shuffleTeamMates">
+        ?
+      </button>
+    </div>
+
     <div class="event-overlay" v-if="minigameRoulette">
       <minigame-roulette :minigames="minigames.filter(el => el.modes.includes(minigameType))" @done="endMinigame"></minigame-roulette>
     </div>
@@ -73,6 +79,9 @@ export default {
     endMinigame () {
       this.minigameType = ''
       this.minigameRoulette = false
+    },
+    shuffleTeamMates () {
+      this.$socket.emit('shuffleTeamMates', { gameId: this.gameId })
     }
   },
   components: {

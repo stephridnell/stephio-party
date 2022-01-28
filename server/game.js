@@ -20,6 +20,7 @@ exports.initGame = function (sio, socket) {
   gameSocket.on('hostKickPlayer', hostKickPlayer)
   gameSocket.on('hostStartGame', hostStartGame)
   gameSocket.on('hostSetTurnOrder', hostSetTurnOrder)
+  gameSocket.on('shuffleTeamMates', shuffleTeamMates)
 
   // Player Events
   gameSocket.on('playerJoinGame', playerJoinGame)
@@ -105,6 +106,27 @@ async function hostSetTurnOrder (data) {
 
   if (game) {
     game.currentTurnPlayer = data.firstPlayer
+    await game.save()
+    io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
+  } else {
+    this.emit('error', { message: 'This game does not exist.' } )
+  }
+}
+
+async function shuffleTeamMates (data) {
+  const game = await Game.findOne({ roomCode: data.gameId }).exec()
+
+  if (game) {
+    let teams = game.teams
+    let players = teams.map(team => {
+      return team.players
+    })
+  
+    teams.forEach(team => {
+      let player = players.splice(Math.floor(Math.random()*players.length),1)[0]
+      team.set({ ...team, players: player })
+    })
+    game.set({ ...game, teams })
     await game.save()
     io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
   } else {
