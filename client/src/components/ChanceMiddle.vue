@@ -1,12 +1,9 @@
 <template>
-  <div class="rolling white text-bold text-60">
-    <img class="chance-avatar" :src="currentTeams[number].avatar" :style="'background:var(--player' + number + 'darkest);'" /><br>
+  <div class="rolling white text-bold text-60" style="width:300px;">
+    {{ options[number] }}<br>
     <button class="mt-1 text-bold text-24 button-small" @click="stopSpin" v-if="value === null">
       Stop
     </button>
-    <span v-else>
-      {{ currentTeams[number].teamCaptain }}
-    </span>
   </div>
 </template>
 
@@ -18,13 +15,20 @@ export default {
   data () {
     return {
       number: 1,
-      value: null
+      value: null,
+      options: [
+        '< 10 coins',
+        '10 coins >',
+        '< 5 coins',
+        '5 coins >',
+        '< 1 star',
+        '1 star >',
+        '< 20 coins',
+        '20 coins >',
+        '< coins >',
+        '< stars >',
+      ]
     }
-  },
-  computed: {
-    ...mapGetters({
-      currentTeams: 'currentTeams'
-    })
   },
   methods: {
     randomIntFromInterval (min, max) {
@@ -32,13 +36,13 @@ export default {
     },
     stopSpin () {
       this.value = this.number
-      this.$emit('stopped', currentTeams[number])
+      this.$emit('stopped', options[number])
     }
   },
   mounted () {
     const updateCount = () => {
       if (this.value === null) {
-        this.number = this.randomIntFromInterval(0, 3)
+        this.number = this.randomIntFromInterval(0, 9)
         setTimeout(updateCount, 100)
       } else {
         this.number = this.value

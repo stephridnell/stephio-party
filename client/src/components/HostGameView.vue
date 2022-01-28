@@ -68,13 +68,12 @@
 
     <div class="mt-50 text-center" v-if="chanceTime">
       <div class="text-32 white">Chance time</div>
-      <div>
-        <chance-left></chance-left>
-
-
-
+      <div class="d-flex jc-center ai-center">
+        <chance-left class="mr-24" @stopped="leftChanceSet"></chance-left>
+        <chance-middle class="mr-24" @stopped="middleChanceSet"></chance-middle>
+        <chance-right @stopped="rightChanceSet"></chance-right>
       </div>
-      <button class="mt-16 text-bold text-24 button-small" @click="chanceTime = false">
+      <button class="mt-16 text-bold text-24 button-small" @click="stopChanceTime">
         Done
       </button>
     </div>
@@ -101,10 +100,26 @@ export default {
         'You give 20 coins to bowser'
       ],
       bowserAction: '',
-      chanceTime: false
+      chanceTime: false,
+      leftChanceTeam: null,
+      rightChanceTeam: null
     }
   },
   methods: {
+    stopChanceTime () {
+      this.leftChanceTeam = null
+      this.rightChanceTeam = null
+      this.chanceTime = false
+    },
+    leftChanceSet (team) {
+      this.leftChanceTeam = team
+    },
+    middleChanceSet (team) {
+      this.middleChanceTeam = team
+    },
+    rightChanceSet (team) {
+      this.rightChanceTeam = team
+    },
     bowser () {
       let bowserIndex = Math.floor(Math.random() * 3)
       this.bowserAction = this.bowserOptions[bowserIndex]
@@ -125,7 +140,9 @@ export default {
     TeamCard: () => import('./TeamCard.vue'),
     Rolling: () => import('./Rolling.vue'),
     MinigameRoulette: () => import('./MinigameRoulette.vue'),
-    ChanceLeft: () => import('./ChanceLeft.vue')
+    ChanceLeft: () => import('./ChanceLeft.vue'),
+    ChanceMiddle: () => import('./ChanceMiddle.vue'),
+    ChanceRight: () => import('./ChanceRight.vue')
   },
   computed: {
     ...mapGetters({
