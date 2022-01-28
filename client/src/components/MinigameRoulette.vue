@@ -14,7 +14,7 @@
     <div class="wrapper" ref="wrapper">
       <div id="minigame-roulette" class="window">
         <ul class="list">
-          <li v-for="minigame in minigames" :key="minigame._id">
+          <li v-for="minigame in longArrayOfGames" :key="minigame._id">
             <img :src="s3BucketUrl + minigame.imageName" :alt="minigame.name">
           </li>
         </ul>
@@ -43,11 +43,16 @@ export default {
   data () {
     return {
       randomMinigame: null,
-      min: 0
+      min: 0,
+      longArrayOfGames: []
     }
   },
   mounted () {
     this.pickMinigame()
+    this.longArrayOfGames = []
+    while (this.longArrayOfGames.length < 40) {
+      this.longArrayOfGames = this.longArrayOfGames.concat(this.minigames)
+    }
   },
   methods: {
     pickMinigame () {

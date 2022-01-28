@@ -28,12 +28,27 @@
       </div>
     </div>
 
-    <button class="text-bold text-36" @click="minigameRoulette = true">
-      Minigame
-    </button>
+    <div class="mt-50 text-center">
+      <div class="text-bold white text-42">Minigames</div>
+      <button class="text-bold text-36 mr-24" @click="triggerMinigame('ffa')">
+        FFA
+      </button>
+
+      <button class="text-bold text-36 mr-24" @click="triggerMinigame('solo')">
+        Single player
+      </button>
+
+      <button class="text-bold text-36 mr-24" @click="triggerMinigame('asymmetric')">
+        1v3
+      </button>
+
+      <button class="text-bold text-36" @click="triggerMinigame('2v2')">
+        2v2
+      </button>
+    </div>
 
     <div class="event-overlay" v-if="minigameRoulette">
-      <minigame-roulette :minigames="minigames" @done="minigameRoulette = false"></minigame-roulette>
+      <minigame-roulette :minigames="minigames.filter(el => el.modes.includes(minigameType))" @done="endMinigame"></minigame-roulette>
     </div>
   </div>
 </template>
@@ -45,8 +60,19 @@ export default {
   name: 'HostGameView',
   data () {
     return {
+      minigameType: '',
       showGoesFirst: false,
       minigameRoulette: false
+    }
+  },
+  methods: {
+    triggerMinigame (type) {
+      this.minigameType = type
+      this.minigameRoulette = true
+    },
+    endMinigame () {
+      this.minigameType = ''
+      this.minigameRoulette = false
     }
   },
   components: {

@@ -1,8 +1,5 @@
 <template>
   <div class="host-view">
-    <div class="text-center white p-20 text-bold text-caps text-60">
-      Steph<span class="strikethrough">Mar</span>io Party
-    </div>
     <waiting-view v-if="!gameStarted"></waiting-view>
     <host-game-view v-else></host-game-view>
   </div>
