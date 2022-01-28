@@ -19,7 +19,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      gameStarted: 'gameStarted'
+      gameStarted: 'gameStarted',
+      currentTurnNumber: 'currentTurnNumber'
     })
   }
 }

@@ -232,7 +232,16 @@ async function playerStoreSpace (data) {
   const turn = game?.teams.id(data.teamId).turns?.id(data.turnId)
 
   if (turn) {
-    turn.set({ ...turn, space: data.space })
+    let team = 'blue'
+    switch (data.space) {
+      case 'red':
+      case 'bowser':
+        team = 'red'
+      case 'green':
+        team = 'green'
+        break
+    }
+    turn.set({ ...turn, space: data.space, team })
     game.save()
     io.sockets.in(game.roomCode).emit('gameDataUpdated', { game })
   } else {
