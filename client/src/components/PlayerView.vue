@@ -31,7 +31,7 @@
           <dice @roll="initialRoll" :value="currentTeam.initialRoll"></dice>
         </div>
 
-        <template v-else>
+        <!-- <template v-else>
           <turn v-if="playersTurn"></turn>
 
           <div v-else>
@@ -46,7 +46,7 @@
               <template v-else>Minigame</template>
             </div>
           </div>
-        </template>
+        </template> -->
       </div>
     </div>
   </div>

@@ -54,11 +54,27 @@
       <button class="text-bold text-36 mr-24 round danger" @click="bowser">
         <img :src="require('@/assets/img/bowser.png')" height="25px" width="25px">
       </button>
+      <button class="red blue-button text-bold text-36 mr-24 round" @click="chanceTime = true">
+        !
+      </button>
     </div>
 
     <div class="mt-50 text-center" v-if="bowserAction">
       <div class="text-32 white">{{ bowserAction }}</div>
       <button class="mt-16 text-bold text-24 button-small" @click="bowserAction = ''">
+        Done
+      </button>
+    </div>
+
+    <div class="mt-50 text-center" v-if="chanceTime">
+      <div class="text-32 white">Chance time</div>
+      <div>
+        <chance-left></chance-left>
+
+
+
+      </div>
+      <button class="mt-16 text-bold text-24 button-small" @click="chanceTime = false">
         Done
       </button>
     </div>
@@ -84,7 +100,8 @@ export default {
         'Everybody gives 10 coins to bowser',
         'You give 20 coins to bowser'
       ],
-      bowserAction: ''
+      bowserAction: '',
+      chanceTime: false
     }
   },
   methods: {
@@ -107,7 +124,8 @@ export default {
   components: {
     TeamCard: () => import('./TeamCard.vue'),
     Rolling: () => import('./Rolling.vue'),
-    MinigameRoulette: () => import('./MinigameRoulette.vue')
+    MinigameRoulette: () => import('./MinigameRoulette.vue'),
+    ChanceLeft: () => import('./ChanceLeft.vue')
   },
   computed: {
     ...mapGetters({

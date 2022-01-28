@@ -19,6 +19,9 @@
 
   --red:       #FF6463;
   --reddarker: #f52269;
+
+  --blue:       #3F9CFF;
+  --bluedarker: #325ab9;
 }
 
 body {
@@ -197,6 +200,18 @@ button:active, .button:active {
   }
 }
 
+button, .button {
+  &.blue-button {
+    box-shadow: 0 7px 0px 0px var(--bluedarker);
+    background: var(--blue);
+  }
+}
+button:active, .button:active {
+  &.blue-button {
+    box-shadow: 0 3px 0px 0px var(--bluedarker);
+  }
+}
+
 button:active, .button:active {
   transform: translateY(4px);
   box-shadow: 0 3px 0px 0px #2E9947;
@@ -229,6 +244,11 @@ a {
   border-radius: 50%;
   height: 100px;
   width: 100px;
+}
+.chance-avatar {
+  border-radius: 50%;
+  height: 175px;
+  width: 175px;
 }
 
 
