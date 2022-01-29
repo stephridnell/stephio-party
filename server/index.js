@@ -15,7 +15,7 @@ let users = {}
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-let allowlist = ['http://localhost:8080', 'http://192.168.1.24:8080']
+let allowlist = ['http://localhost:8080', 'http://192.168.84.24:8080']
 app.use(cors({
   origin: allowlist
 }))
