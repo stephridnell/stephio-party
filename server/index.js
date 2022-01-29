@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const io = require('socket.io')(http, {
-  cors: { origins: ['http://localhost:8080'] }
+  cors: { origins: ['http://localhost:8080', 'https://peaceful-perlman-519ac9.netlify.app'] }
 })
 
 let users = {}
@@ -15,7 +15,7 @@ let users = {}
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-let allowlist = ['http://localhost:8080', 'http://192.168.84.24:8080']
+let allowlist = ['http://localhost:8080', 'https://peaceful-perlman-519ac9.netlify.app']
 app.use(cors({
   origin: allowlist
 }))
